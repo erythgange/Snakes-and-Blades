@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=3 uid="uid://c6yg1bkqw8ldx"]
+
+[ext_resource type="Texture2D" uid="uid://dc5jcgvb6q134" path="res://Assets/SnakeHead_1.png" id="1_8ufa2"]
+[ext_resource type="Script" path="res://Scripts/snake.gd" id="1_iskpk"]
+[ext_resource type="Script" path="res://Scripts/Blade.gd" id="3_obgln"]
+[ext_resource type="Texture2D" uid="uid://dkkhyphlbuhfr" path="res://Assets/Blade_1.png" id="4_mxqca"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_b8wj6"]
+radius = 7.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_coea2"]
+size = Vector2(3, 25)
+
+[node name="Snake" type="CharacterBody2D"]
+script = ExtResource("1_iskpk")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 2
+position = Vector2(8, 0)
+rotation = 1.5708
+texture = ExtResource("1_8ufa2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(7, 0)
+shape = SubResource("CircleShape2D_b8wj6")
+
+[node name="Blade" type="Area2D" parent="."]
+position = Vector2(7, 0)
+script = ExtResource("3_obgln")
+
+[node name="Sprite2D" type="Sprite2D" parent="Blade"]
+z_index = 1
+texture = ExtResource("4_mxqca")
+offset = Vector2(0, -18)
+flip_h = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Blade"]
+position = Vector2(0, -22)
+shape = SubResource("RectangleShape2D_coea2")
+
+[node name="CooldownTimer" type="Timer" parent="Blade"]
+wait_time = 2.0
+
+[connection signal="timeout" from="Blade/CooldownTimer" to="." method="_on_cooldown_timer_timeout"]
+[connection signal="timeout" from="Blade/CooldownTimer" to="Blade" method="_on_cooldown_timer_timeout"]

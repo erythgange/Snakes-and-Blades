@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://h05bpqqsdr21"]
+
+[ext_resource type="Texture2D" uid="uid://dbms56y8y8lr6" path="res://Assets/grass bg.png" id="1_74kt1"]
+[ext_resource type="PackedScene" uid="uid://c6yg1bkqw8ldx" path="res://Scenes/snake.tscn" id="1_c38un"]
+
+[node name="Main" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("1_74kt1")
+centered = false
+
+[node name="Snake" parent="." instance=ExtResource("1_c38un")]
+position = Vector2(475, 472)
+scale = Vector2(3.5, 3.5)
