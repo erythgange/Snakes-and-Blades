@@ -12,7 +12,7 @@ func _process(delta):
 		print("Dashed!")
 		$CooldownTimer.start()
 
-	print (State)
+	#print (State)
 
 func _on_cooldown_timer_timeout():
 	State = 1
