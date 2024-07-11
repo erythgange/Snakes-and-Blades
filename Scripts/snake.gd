@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 @export var Health = 10
-@export var Speed = 500
+@export var Speed = 1000
 @export var maxSpeed = Health*100
 @export var Turn = Speed
 #States: 1 = Neutral, 2 = Dashing, 3 = Parrying
