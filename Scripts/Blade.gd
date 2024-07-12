@@ -10,7 +10,7 @@ func _process(delta):
 	
 	if Input.is_action_just_released("Dash") and State == 3:
 		print("Dashed!")
-		$CooldownTimer.start()
+		$DashCooldown.start()
 
 	#print (State)
 

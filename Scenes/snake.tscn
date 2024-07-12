@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://c6yg1bkqw8ldx"]
+[gd_scene load_steps=9 format=3 uid="uid://c6yg1bkqw8ldx"]
 
 [ext_resource type="Texture2D" uid="uid://dc5jcgvb6q134" path="res://Assets/SnakeHead_1.png" id="1_8ufa2"]
 [ext_resource type="Script" path="res://Scripts/snake.gd" id="1_iskpk"]
@@ -10,6 +10,14 @@ radius = 7.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_coea2"]
 size = Vector2(3, 25)
+
+[sub_resource type="Animation" id="Animation_167oi"]
+resource_name = "Swing"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ki10w"]
+_data = {
+"Swing": SubResource("Animation_167oi")
+}
 
 [node name="Snake" type="CharacterBody2D"]
 script = ExtResource("1_iskpk")
@@ -24,11 +32,13 @@ texture = ExtResource("1_8ufa2")
 position = Vector2(7, 0)
 shape = SubResource("CircleShape2D_b8wj6")
 
-[node name="DashCooldown" type="Timer" parent="."]
-wait_time = 2.0
+[node name="DashTime" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
 
 [node name="Blade" type="Area2D" parent="."]
 position = Vector2(7, 0)
+rotation = -0.898845
 script = ExtResource("3_obgln")
 
 [node name="Sprite2D" type="Sprite2D" parent="Blade"]
@@ -41,10 +51,12 @@ flip_h = true
 position = Vector2(0, -22)
 shape = SubResource("RectangleShape2D_coea2")
 
-[node name="CooldownTimer" type="Timer" parent="Blade"]
-wait_time = 2.0
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Blade"]
+libraries = {
+"": SubResource("AnimationLibrary_ki10w")
+}
 
-[connection signal="timeout" from="DashCooldown" to="." method="_on_cooldown_timer_timeout"]
-[connection signal="timeout" from="DashCooldown" to="Blade" method="_on_cooldown_timer_timeout"]
-[connection signal="timeout" from="Blade/CooldownTimer" to="." method="_on_cooldown_timer_timeout"]
-[connection signal="timeout" from="Blade/CooldownTimer" to="Blade" method="_on_cooldown_timer_timeout"]
+[connection signal="timeout" from="DashTime" to="." method="_on_dash_cooldown_timeout"]
+[connection signal="timeout" from="DashTime" to="." method="_on_cooldown_timer_timeout"]
+[connection signal="timeout" from="DashTime" to="." method="_on_dash_time_timeout"]
+[connection signal="timeout" from="DashTime" to="Blade" method="_on_cooldown_timer_timeout"]
