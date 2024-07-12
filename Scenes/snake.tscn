@@ -24,6 +24,9 @@ texture = ExtResource("1_8ufa2")
 position = Vector2(7, 0)
 shape = SubResource("CircleShape2D_b8wj6")
 
+[node name="DashCooldown" type="Timer" parent="."]
+wait_time = 2.0
+
 [node name="Blade" type="Area2D" parent="."]
 position = Vector2(7, 0)
 script = ExtResource("3_obgln")
@@ -41,5 +44,7 @@ shape = SubResource("RectangleShape2D_coea2")
 [node name="CooldownTimer" type="Timer" parent="Blade"]
 wait_time = 2.0
 
+[connection signal="timeout" from="DashCooldown" to="." method="_on_cooldown_timer_timeout"]
+[connection signal="timeout" from="DashCooldown" to="Blade" method="_on_cooldown_timer_timeout"]
 [connection signal="timeout" from="Blade/CooldownTimer" to="." method="_on_cooldown_timer_timeout"]
 [connection signal="timeout" from="Blade/CooldownTimer" to="Blade" method="_on_cooldown_timer_timeout"]
