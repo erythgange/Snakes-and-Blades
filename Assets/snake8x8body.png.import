@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://4sit7wy34u2f"
-path="res://.godot/imported/SnakeTail_1.png-380ea43ed197dd81dce885980611941a.ctex"
+uid="uid://4dwp1fsyids6"
+path="res://.godot/imported/snake8x8body.png-c38446c73fec484222d560e7fa0fcf3e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/SnakeTail_1.png"
-dest_files=["res://.godot/imported/SnakeTail_1.png-380ea43ed197dd81dce885980611941a.ctex"]
+source_file="res://Assets/snake8x8body.png"
+dest_files=["res://.godot/imported/snake8x8body.png-c38446c73fec484222d560e7fa0fcf3e.ctex"]
 
 [params]
 

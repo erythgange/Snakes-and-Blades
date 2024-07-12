@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dc5jcgvb6q134"
-path="res://.godot/imported/SnakeHead_1.png-540719ebf843b4065e66122919ac8f8f.ctex"
+uid="uid://lxpouipsbxmc"
+path="res://.godot/imported/snake8x8tail.png-25706bd3f5c3441e4ad4028a9cc9870c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/SnakeHead_1.png"
-dest_files=["res://.godot/imported/SnakeHead_1.png-540719ebf843b4065e66122919ac8f8f.ctex"]
+source_file="res://Assets/snake8x8tail.png"
+dest_files=["res://.godot/imported/snake8x8tail.png-25706bd3f5c3441e4ad4028a9cc9870c.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dkkhyphlbuhfr"
-path="res://.godot/imported/Blade_1.png-d5aa3198959bd89125d7014a34472539.ctex"
+uid="uid://dga3bebpkcvkh"
+path="res://.godot/imported/blade8x8.png-5907d63926769e41ed52867bdca42194.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Blade_1.png"
-dest_files=["res://.godot/imported/Blade_1.png-d5aa3198959bd89125d7014a34472539.ctex"]
+source_file="res://Assets/blade8x8.png"
+dest_files=["res://.godot/imported/blade8x8.png-5907d63926769e41ed52867bdca42194.ctex"]
 
 [params]
 

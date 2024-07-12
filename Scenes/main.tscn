@@ -6,10 +6,10 @@
 [node name="Main" type="Node2D"]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.8, 0.8)
+scale = Vector2(1.505, 0.85)
 texture = ExtResource("1_74kt1")
 centered = false
 
 [node name="Snake" parent="." instance=ExtResource("1_c38un")]
 position = Vector2(475, 472)
-scale = Vector2(3.5, 3.5)
+scale = Vector2(6, 6)

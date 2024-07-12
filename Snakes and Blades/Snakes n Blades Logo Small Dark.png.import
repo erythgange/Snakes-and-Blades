@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://3pkj3gwdatbv"
-path="res://.godot/imported/SnakeBody_1.png-33c2ca1459b923800d5042751cdd5a78.ctex"
+uid="uid://v172hg2ly3gr"
+path="res://.godot/imported/Snakes n Blades Logo Small Dark.png-7fe4d77af0ccbbe431111e87fb7de549.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/SnakeBody_1.png"
-dest_files=["res://.godot/imported/SnakeBody_1.png-33c2ca1459b923800d5042751cdd5a78.ctex"]
+source_file="res://Snakes and Blades/Snakes n Blades Logo Small Dark.png"
+dest_files=["res://.godot/imported/Snakes n Blades Logo Small Dark.png-7fe4d77af0ccbbe431111e87fb7de549.ctex"]
 
 [params]
 

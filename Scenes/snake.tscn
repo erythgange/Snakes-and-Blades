@@ -1,15 +1,16 @@
 [gd_scene load_steps=11 format=3 uid="uid://c6yg1bkqw8ldx"]
 
-[ext_resource type="Texture2D" uid="uid://dc5jcgvb6q134" path="res://Assets/SnakeHead_1.png" id="1_8ufa2"]
 [ext_resource type="Script" path="res://Scripts/snake.gd" id="1_iskpk"]
+[ext_resource type="Texture2D" uid="uid://c04ncdtw62y8o" path="res://Assets/snake8x8head.png" id="2_2h0fh"]
 [ext_resource type="Script" path="res://Scripts/Blade.gd" id="3_obgln"]
-[ext_resource type="Texture2D" uid="uid://dkkhyphlbuhfr" path="res://Assets/Blade_1.png" id="4_mxqca"]
+[ext_resource type="Texture2D" uid="uid://dga3bebpkcvkh" path="res://Assets/blade8x8.png" id="4_k6p68"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_b8wj6"]
-radius = 7.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_a4aiy"]
+radius = 3.0
+height = 9.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_coea2"]
-size = Vector2(3, 25)
+size = Vector2(2.81766, 12.16)
 
 [sub_resource type="Animation" id="Animation_167oi"]
 resource_name = "Swing"
@@ -72,31 +73,33 @@ script = ExtResource("1_iskpk")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = 2
-position = Vector2(8, 0)
+position = Vector2(4, 0)
 rotation = 1.5708
-texture = ExtResource("1_8ufa2")
+texture = ExtResource("2_2h0fh")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(7, 0)
-shape = SubResource("CircleShape2D_b8wj6")
+position = Vector2(3.5, 0)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_a4aiy")
 
 [node name="DashTime" type="Timer" parent="."]
 wait_time = 0.2
 one_shot = true
 
 [node name="Blade" type="Area2D" parent="."]
-position = Vector2(12, 1.19209e-07)
+position = Vector2(7, 0)
 rotation = -0.698132
 script = ExtResource("3_obgln")
 
 [node name="Sprite2D" type="Sprite2D" parent="Blade"]
 z_index = 1
-texture = ExtResource("4_mxqca")
-offset = Vector2(0, -18)
+texture = ExtResource("4_k6p68")
+offset = Vector2(0, -6)
 flip_h = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Blade"]
-position = Vector2(0, -22)
+position = Vector2(0, -8)
+scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_coea2")
 
 [node name="BladeAnimation" type="AnimationPlayer" parent="Blade"]

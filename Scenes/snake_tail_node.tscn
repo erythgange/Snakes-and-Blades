@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://ccbsxgj6s05ph"]
+
+[ext_resource type="Texture2D" uid="uid://lxpouipsbxmc" path="res://Assets/snake8x8tail.png" id="1_budse"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pifd3"]
+size = Vector2(7, 4)
+
+[node name="Snake Tail" type="CharacterBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 2
+position = Vector2(-4, 0)
+rotation = 1.5708
+texture = ExtResource("1_budse")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-3.5, 0)
+shape = SubResource("RectangleShape2D_pifd3")
