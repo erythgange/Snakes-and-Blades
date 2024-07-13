@@ -1,17 +1,24 @@
 extends Node2D
 
 var left: bool = true
+var is_blade_on_cooldown: bool = false
 
+# Sword switching from left to right, vice versa
 func _process(delta):
-	if Input.is_action_just_released("Dash"):
+	
+	if Input.is_action_just_released("Dash") and is_blade_on_cooldown == false:
+		
+		#Cooldown so yo can't spam attack
+		$BladeCooldown.start()
+		is_blade_on_cooldown = true
 		if left == true:
-			$Sprite2D.flip_h = true
-			$BladeAnimation.play("Swing")
 			
+			$BladeAnimation.play("blade_neutral_attack")
 			left = false
 		else: 
-			$Sprite2D.flip_h = false
-			$BladeAnimation.play("Swing_mirror")
-			
+			$BladeAnimation.play("blade_neutral_attack_mirror")
 			left = true
-			
+
+
+func _on_blade_cooldown_timeout():
+	is_blade_on_cooldown = false

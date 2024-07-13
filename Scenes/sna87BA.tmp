@@ -391,6 +391,11 @@ _data = {
 
 [node name="Snake" type="CharacterBody2D"]
 script = ExtResource("1_iskpk")
+health = null
+speed = null
+bonus_speed = null
+bonus_turn_speed = null
+charge = null
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = 2
