@@ -1,33 +1,63 @@
 extends CharacterBody2D
 
 # Base values
-@export var health = 5
-@export var speed = 400
-@export var max_speed = health * 100
-@export var turn = (speed/10) + 150
+@export var health: int = 5
+@export var current_body_count: int = health
+@export var speed: float = 100
+@export var max_speed: float = health * 100
+@export var turn: float = (speed/10) + 150
 
-# Additive variables (additive values)
-@export var bonus_speed = 0
-@export var bonus_turn_speed = 0
-@export var charge = 0
+# Stat Modifiers (additive values)
+@export var bonus_speed: float = 0
+@export var bonus_turn_speed: float = 0
+@export var charge: float = 0
 
 # States
+var run_once: bool = false
+
 var is_dashing: bool = false
 var is_dash_on_cooldown: bool = false
 var is_slashing: bool = false
-var is_parrying: bool = false
-var can_speedup: bool = true
 var is_blade_on_left_side: bool = true
 var is_blade_on_cooldown: bool = false
+var is_parrying: bool = false
+var can_speedup: bool = true
+var is_snake_healed: bool = false
+var is_snake_damaged: bool = false
+var is_collission: bool
 
 # Scenes to instantiate/duplicate (i.e. the body and the tail)
-var snake_body_node = preload("res://Scenes/snake_body_node.tscn")
+var snake_body_scene = preload("res://Scenes/snake_body_scene.tscn")
 
 # References to other nodes
 @onready var blade_animation = $Blade/BladeAnimation
 @onready var blade_cooldown = $Blade/BladeCooldown
 
-func _physics_process(delta):
+
+
+func _physics_process(delta) -> void:
+
+	if run_once == false:
+		#create body and tail
+		#for x in health - 1: # execute this code (health) amount of times
+			#add_body()
+			#print("added body!")
+		#add tail child
+		run_once = true
+
+	#called when getting hurt or healed
+	#hurt()
+
+	
+
+		# healing
+		# insert eating food = +1 hp here
+		# remove_child: snake_tail  
+		# add_child: snake_body
+		# add_child: snake_tail
+		# if last child = tail: tail -> body animation
+		# else: body -> tail animation
+
 
 	# gains speed with max limit
 	if speed < max_speed and can_speedup == true: 
@@ -72,8 +102,6 @@ func _physics_process(delta):
 			if is_blade_on_left_side == true:
 				is_blade_on_left_side = false
 			else: is_blade_on_left_side = true
-
-	
 	# Converts charge values to bonus speed until it runs out
 	elif charge > 0 and is_dashing == true: 
 		bonus_speed -= bonus_speed*0.05
@@ -87,6 +115,7 @@ func _physics_process(delta):
 			bonus_speed = 0
 			bonus_turn_speed = 0
 
+
 	# Turn left or right + slight speed boost (for moving like a snake!)
 	if Input.is_action_pressed("Left") and not Input.is_action_pressed("Right"):
 		rotate(deg_to_rad( -(turn + bonus_turn_speed) * delta) )
@@ -95,30 +124,49 @@ func _physics_process(delta):
 		rotate(deg_to_rad( (turn + bonus_turn_speed) * delta) )
 		speed += 0.01
 
+
 	# Debug print
-	print("current charge:")
-	print(charge)
+	#print("current speed:")
+	#print(speed)
 
 
-	#dont worry about it
+	# Physics process end
 	velocity = Vector2(speed+bonus_speed,0).rotated(rotation) 
 	move_and_slide()
 
+func hurt(damage, is_collission):
+	# damage pop-up
+	# play entity flash animation
+	# hit stun the snake
+	if is_collission == true and health == 1: # can't die in collission
+		return
+	else: for x in damage: pass # execute this x amount of times the damage
+			# remove_child
+
+func heal(amount):
+	# heal pop-up
+	# play entity flash animation
+	for x in amount: 
+		add_body()
+
 func add_body():
 #for n in range(1,health): #range of one to current health i.e. number of bodies
+	#current_body_count
+	var instantiate = snake_body_scene.instantiate()
 	
-	var body = snake_body_node.instantiate()
-	body.position = Vector2(10,0)
-	add_child(body)
-
-
-func snake_body_instance():
-	health	
+	#just have to find a way to get the youngest child, kaya ni. # arrays might be the best solution
+	var last_child = $Parent.get_child($Parent.get_child_count())
+	#find_child()
+	#find_child(SnakeBody).add_child(instantiate, true)
+	print("added snake body!")
 	
+func add_tail():
+	pass
+
 func _on_dash_cooldown_timeout():
 	is_dash_on_cooldown = false
 	print("dash cooldown false")
 
 func _on_blade_cooldown_timeout():
 	is_blade_on_cooldown = false
-
+	can_speedup = true

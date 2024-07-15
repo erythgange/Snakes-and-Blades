@@ -400,7 +400,6 @@ rotation = 1.5708
 texture = ExtResource("2_2h0fh")
 
 [node name="SnakeBody" parent="." instance=ExtResource("3_xwg5l")]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(3.5, 0)
