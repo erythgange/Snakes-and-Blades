@@ -1,11 +1,13 @@
 extends CharacterBody2D
 
 # Base values
-@export var health: int = 5
-@export var current_body_count: int = health
+@export var health: int = 10
+@export var current_body_count: int = 1
 @export var speed: float = 100
 @export var max_speed: float = health * 100
 @export var turn: float = (speed/10) + 150
+
+
 
 # Stat Modifiers (additive values)
 @export var bonus_speed: float = 0
@@ -14,7 +16,6 @@ extends CharacterBody2D
 
 # States
 var run_once: bool = false
-
 var is_dashing: bool = false
 var is_dash_on_cooldown: bool = false
 var is_slashing: bool = false
@@ -33,31 +34,37 @@ var snake_body_scene = preload("res://Scenes/snake_body_scene.tscn")
 @onready var blade_animation = $Blade/BladeAnimation
 @onready var blade_cooldown = $Blade/BladeCooldown
 
+# array containers 
+var position_history = []
+var rotation_history = []
+var body_part = [] 
+
+
+
+
+
+
+
 
 
 func _physics_process(delta) -> void:
 
 	if run_once == false:
-		#create body and tail
-		#for x in health - 1: # execute this code (health) amount of times
-			#add_body()
-			#print("added body!")
+		print("im running once!")
+		for x in (health): # execute this code (health) amount of times
+			add_body()
 		#add tail child
 		run_once = true
 
-	#called when getting hurt or healed
-	#hurt()
+	#	position history using arrays
+	position_history.push_back(position)
+	rotation_history.push_back(rotation)
 
 	
-
-		# healing
-		# insert eating food = +1 hp here
-		# remove_child: snake_tail  
-		# add_child: snake_body
-		# add_child: snake_tail
-		# if last child = tail: tail -> body animation
-		# else: body -> tail animation
-
+	if position_history.size() > (health * 10):
+		update_body()
+		position_history.pop_front()
+		rotation_history.pop_front()
 
 	# gains speed with max limit
 	if speed < max_speed and can_speedup == true: 
@@ -134,7 +141,20 @@ func _physics_process(delta) -> void:
 	velocity = Vector2(speed+bonus_speed,0).rotated(rotation) 
 	move_and_slide()
 
+
+
+
+
+func update_body():
+	for n in health * 10:
+		$SnakeBody.global_position = position_history[n-10]
+		$SnakeBody.global_rotation = rotation_history[n-10]
+		$SnakeBody2.global_position = position_history[n-20]
+		$SnakeBody2.global_rotation = rotation_history[n-20]
+		
+
 func hurt(damage, is_collission):
+	health -= damage
 	# damage pop-up
 	# play entity flash animation
 	# hit stun the snake
@@ -144,6 +164,7 @@ func hurt(damage, is_collission):
 			# remove_child
 
 func heal(amount):
+	health += amount
 	# heal pop-up
 	# play entity flash animation
 	for x in amount: 
@@ -153,12 +174,14 @@ func add_body():
 #for n in range(1,health): #range of one to current health i.e. number of bodies
 	#current_body_count
 	var instantiate = snake_body_scene.instantiate()
-	
-	#just have to find a way to get the youngest child, kaya ni. # arrays might be the best solution
-	var last_child = $Parent.get_child($Parent.get_child_count())
-	#find_child()
-	#find_child(SnakeBody).add_child(instantiate, true)
-	print("added snake body!")
+		#just have to find a way to get the youngest child, kaya ni. # arrays might be the best solution
+		#var last_child = $Parent.get_child($Parent.get_child_count())
+	#find_child(SnakeBody).
+	add_child(instantiate, true)
+	body_part.append(instantiate)
+	#body_part.global_position.x += 10 * current_body_count
+	current_body_count =+ 1
+	print("adding body!")
 	
 func add_tail():
 	pass
@@ -168,5 +191,7 @@ func _on_dash_cooldown_timeout():
 	print("dash cooldown false")
 
 func _on_blade_cooldown_timeout():
+	print (position_history)
 	is_blade_on_cooldown = false
 	can_speedup = true
+	

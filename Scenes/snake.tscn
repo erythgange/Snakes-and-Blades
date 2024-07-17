@@ -1,14 +1,13 @@
-[gd_scene load_steps=19 format=3 uid="uid://c6yg1bkqw8ldx"]
+[gd_scene load_steps=18 format=3 uid="uid://c6yg1bkqw8ldx"]
 
 [ext_resource type="Script" path="res://Scripts/snake.gd" id="1_iskpk"]
 [ext_resource type="Texture2D" uid="uid://c04ncdtw62y8o" path="res://Assets/snake8x8head.png" id="2_2h0fh"]
-[ext_resource type="PackedScene" uid="uid://cnq0nymlk72ia" path="res://Scenes/snake_body_scene.tscn" id="3_xwg5l"]
 [ext_resource type="Texture2D" uid="uid://dga3bebpkcvkh" path="res://Assets/blade8x8.png" id="4_k6p68"]
 [ext_resource type="Shader" uid="uid://ctopg7qwltrnt" path="res://Shaders/hit_flash.tres" id="4_rg5oy"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_a4aiy"]
 radius = 3.0
-height = 9.0
+height = 8.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5dltu"]
 shader = ExtResource("4_rg5oy")
@@ -399,11 +398,8 @@ position = Vector2(4, 0)
 rotation = 1.5708
 texture = ExtResource("2_2h0fh")
 
-[node name="SnakeBody" parent="." instance=ExtResource("3_xwg5l")]
-visible = false
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(3.5, 0)
+position = Vector2(3, 0)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_a4aiy")
 
@@ -433,6 +429,7 @@ libraries = {
 
 [node name="BladeCooldown" type="Timer" parent="Blade"]
 wait_time = 0.5
+one_shot = true
 
 [connection signal="timeout" from="DashCooldown" to="." method="_on_dash_cooldown_timeout"]
 [connection signal="timeout" from="Blade/BladeCooldown" to="." method="_on_blade_cooldown_timeout"]

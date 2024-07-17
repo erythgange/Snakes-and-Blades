@@ -33,11 +33,6 @@ sources/0 = SubResource("TileSetAtlasSource_1ac2s")
 position = Vector2(245, 287)
 scale = Vector2(8, 8)
 collision_mask = 2
-health = 5
-speed = 100.0
-bonus_speed = 0.0
-bonus_turn_speed = 0.0
-charge = 0.0
 
 [node name="TileMap" type="TileMap" parent="."]
 scale = Vector2(8, 8)

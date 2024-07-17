@@ -13,13 +13,13 @@ motion_mode = 1
 
 [node name="BodySprite" type="Sprite2D" parent="."]
 z_as_relative = false
-position = Vector2(0, 4)
+rotation = 1.5708
 texture = ExtResource("1_lmy5y")
 
 [node name="TailSprite" type="Sprite2D" parent="."]
-position = Vector2(0, 4)
+rotation = 1.5708
 texture = ExtResource("2_573wf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 4)
+rotation = 1.5708
 shape = SubResource("RectangleShape2D_pifd3")
