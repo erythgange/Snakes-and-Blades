@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://bvla236hc7o22"]
+
+[ext_resource type="Script" path="res://Scenes/snake_hitzone.gd" id="1_n5sdb"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_aert6"]
+radius = 4.0
+
+[node name="SnakeHitzone" type="Area2D"]
+scale = Vector2(4, 4)
+collision_mask = 15
+script = ExtResource("1_n5sdb")
+
+[node name="Body1" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_aert6")
