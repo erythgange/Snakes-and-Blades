@@ -400,7 +400,6 @@ charge = null
 [node name="Blade" type="Area2D" parent="."]
 position = Vector2(0, -7)
 rotation = -2.0944
-scale = Vector2(1, 1)
 
 [node name="Sprite2D" type="Sprite2D" parent="Blade"]
 z_index = 1
@@ -434,6 +433,6 @@ texture = ExtResource("4_btoxo")
 position = Vector2(0, -3)
 shape = SubResource("CapsuleShape2D_a4aiy")
 
-[connection signal="timeout" from="Blade/BladeCooldown" to="Blade" method="_on_blade_cooldown_timeout"]
 [connection signal="timeout" from="Blade/BladeCooldown" to="." method="_on_blade_cooldown_timeout"]
+[connection signal="timeout" from="Blade/BladeCooldown" to="Blade" method="_on_blade_cooldown_timeout"]
 [connection signal="timeout" from="Blade/DashCooldown" to="." method="_on_dash_cooldown_timeout"]
