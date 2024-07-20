@@ -4,8 +4,8 @@ extends CharacterBody2D
 @export var health: int = 100
 @export var current_body_count: int = 1
 @export var speed: float = 100
-@export var max_speed: float = health * 10
-@export var turn: float = (speed/100) + 200
+@export var max_speed: float = current_body_count * 100
+@export var turn: float = (speed/10) + 200
 
 
 var global_position_last: Vector2 = global_position
@@ -58,10 +58,10 @@ func _physics_process(delta) -> void:
 	
 	
 	# stores position_history every 1 distance traveled of snake (instead of every frame)
-	if (global_position_last.distance_to(global_position)) > 10:
+	if (global_position_last.distance_to(global_position)) > current_body_count:
 		global_position_last = global_position
 		position_history.append(global_position)
-		rotation_history.append(global_rotation_degrees)
+		rotation_history.append(global_rotation)
 		
 	# snake cant grow past the health value
 	if position_history.size() > current_body_count*10:
@@ -71,13 +71,13 @@ func _physics_process(delta) -> void:
 	
 	for x in body_parts.size():
 		var point = min(-1-(x*gap), position_history.count(-1))
-		print(point)
-		body_parts[x].global_position = position_history[point]
-		body_parts[x].global_rotation_degrees = rotation_history[point]
+		body_parts[x].global_position = lerp(body_parts[x].global_position, position_history[point], .8)
+		body_parts[x].global_rotation = lerp_angle(body_parts[x].global_rotation, rotation_history[point], .8)
+		
 		
 	# Healing
 	# if eat food, heal health
-	if can_grow_body == true and health/10 >= current_body_count:
+	if can_grow_body == true and health/10 > current_body_count:
 		heal_cooldown.start()
 		can_grow_body = false
 		current_body_count += 1
@@ -85,13 +85,15 @@ func _physics_process(delta) -> void:
 	
 	
 	
-
+	print (speed)
+	print (current_body_count)
 
 
 
 
 
 	# gains speed with max limit
+	max_speed = current_body_count * 100
 	if speed < max_speed and can_speedup == true: 
 		speed += (health * 0.002)
 
