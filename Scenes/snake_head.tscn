@@ -390,12 +390,6 @@ height = 6.0
 [node name="SnakeHead" type="CharacterBody2D"]
 light_mask = 3
 script = ExtResource("1_finu5")
-health = null
-current_body_count = null
-speed = null
-bonus_speed = null
-bonus_turn_speed = null
-charge = null
 
 [node name="Blade" type="Area2D" parent="."]
 position = Vector2(0, -7)
@@ -433,6 +427,11 @@ texture = ExtResource("4_btoxo")
 position = Vector2(0, -3)
 shape = SubResource("CapsuleShape2D_a4aiy")
 
+[node name="HealCooldown" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
 [connection signal="timeout" from="Blade/BladeCooldown" to="." method="_on_blade_cooldown_timeout"]
 [connection signal="timeout" from="Blade/BladeCooldown" to="Blade" method="_on_blade_cooldown_timeout"]
 [connection signal="timeout" from="Blade/DashCooldown" to="." method="_on_dash_cooldown_timeout"]
+[connection signal="timeout" from="HealCooldown" to="." method="_on_heal_cooldown_timeout"]

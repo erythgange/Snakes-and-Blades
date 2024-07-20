@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://h05bpqqsdr21"]
+[gd_scene load_steps=6 format=3 uid="uid://h05bpqqsdr21"]
 
 [ext_resource type="PackedScene" uid="uid://c6yg1bkqw8ldx" path="res://Scenes/snake_head.tscn" id="1_c38un"]
 [ext_resource type="Texture2D" uid="uid://cqnhqnsinv0ah" path="res://Assets/random placeholder tileset.png" id="3_dof31"]
+[ext_resource type="PackedScene" uid="uid://b4fsevfm2ixip" path="res://Scenes/snake_body.tscn" id="3_xiifr"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1ac2s"]
 texture = ExtResource("3_dof31")
@@ -41,3 +42,52 @@ unique_name_in_owner = true
 position = Vector2(301, 323)
 scale = Vector2(4, 4)
 collision_mask = 3
+
+[node name="SnakeBody" parent="." instance=ExtResource("3_xiifr")]
+position = Vector2(301, 323)
+scale = Vector2(4, 4)
+
+[node name="SnakeBody2" parent="." instance=ExtResource("3_xiifr")]
+position = Vector2(1505, 1615)
+scale = Vector2(16, 16)
+script = null
+
+[node name="SnakeBody3" parent="." instance=ExtResource("3_xiifr")]
+position = Vector2(25585, 27455)
+scale = Vector2(256, 256)
+script = null
+
+[node name="SnakeBody4" parent="." instance=ExtResource("3_xiifr")]
+position = Vector2(410865, 440895)
+scale = Vector2(4096, 4096)
+script = null
+
+[node name="SnakeBody5" parent="." instance=ExtResource("3_xiifr")]
+position = Vector2(6.57535e+06, 7.05594e+06)
+scale = Vector2(65536, 65536)
+script = null
+
+[node name="SnakeBody6" parent="." instance=ExtResource("3_xiifr")]
+position = Vector2(1.05207e+08, 1.12897e+08)
+scale = Vector2(1.04858e+06, 1.04858e+06)
+script = null
+
+[node name="SnakeBody7" parent="." instance=ExtResource("3_xiifr")]
+position = Vector2(1505, 1615)
+scale = Vector2(16, 16)
+script = null
+
+[node name="SnakeBody8" parent="." instance=ExtResource("3_xiifr")]
+position = Vector2(25585, 27455)
+scale = Vector2(256, 256)
+script = null
+
+[node name="SnakeBody9" parent="." instance=ExtResource("3_xiifr")]
+position = Vector2(410865, 440895)
+scale = Vector2(4096, 4096)
+script = null
+
+[node name="SnakeBody10" parent="." instance=ExtResource("3_xiifr")]
+position = Vector2(1505, 1615)
+scale = Vector2(16, 16)
+script = null
