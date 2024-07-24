@@ -54,10 +54,11 @@ Right={
 
 2d_physics/layer_1="Player"
 2d_physics/layer_2="Obstacles"
+2d_physics/layer_3="Food"
 
 [physics]
 
-2d/default_gravity=100.0
+2d/default_gravity=0.0
 
 [rendering]
 

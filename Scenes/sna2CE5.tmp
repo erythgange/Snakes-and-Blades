@@ -1,12 +1,11 @@
-[gd_scene load_steps=25 format=3 uid="uid://c6yg1bkqw8ldx"]
+[gd_scene load_steps=22 format=3 uid="uid://c6yg1bkqw8ldx"]
 
 [ext_resource type="Script" path="res://Scripts/snake.gd" id="1_finu5"]
 [ext_resource type="Shader" uid="uid://ctopg7qwltrnt" path="res://Shaders/hit_flash.tres" id="2_vysku"]
 [ext_resource type="Texture2D" uid="uid://dga3bebpkcvkh" path="res://Assets/blade8x8.png" id="3_2b7jr"]
 [ext_resource type="Texture2D" uid="uid://c04ncdtw62y8o" path="res://Assets/snake8x8head.png" id="4_btoxo"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_etgld"]
-resource_local_to_scene = true
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5dltu"]
 shader = ExtResource("2_vysku")
 shader_parameter/enabled = false
 shader_parameter/tint = Color(1, 1, 1, 1)
@@ -384,43 +383,6 @@ _data = {
 "blade_recovery_mirror": SubResource("Animation_24m3r")
 }
 
-[sub_resource type="Animation" id="Animation_aa46b"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../Sprite2D:material:shader_parameter/enabled")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-
-[sub_resource type="Animation" id="Animation_qytr5"]
-resource_name = "blade_parry"
-length = 5.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../Sprite2D:material:shader_parameter/enabled")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_6bp8l"]
-_data = {
-"RESET": SubResource("Animation_aa46b"),
-"blade_parry": SubResource("Animation_qytr5")
-}
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qp7vd"]
 resource_local_to_scene = true
 shader = ExtResource("2_vysku")
@@ -483,6 +445,12 @@ _data = {
 light_mask = 3
 collision_mask = 3
 script = ExtResource("1_finu5")
+health = null
+current_body_count = null
+speed = null
+bonus_speed = null
+bonus_turn_speed = null
+charge = null
 
 [node name="Blade" type="Area2D" parent="."]
 position = Vector2(3, -8.9407e-08)
@@ -490,7 +458,7 @@ rotation = 0.1309
 
 [node name="Sprite2D" type="Sprite2D" parent="Blade"]
 z_index = 1
-material = SubResource("ShaderMaterial_etgld")
+material = SubResource("ShaderMaterial_5dltu")
 texture = ExtResource("3_2b7jr")
 offset = Vector2(0, -6)
 
@@ -510,19 +478,6 @@ one_shot = true
 [node name="DashCooldown" type="Timer" parent="Blade"]
 one_shot = true
 
-[node name="BladeParry" type="AnimationPlayer" parent="Blade"]
-root_node = NodePath("../BladeAnimation")
-libraries = {
-"": SubResource("AnimationLibrary_6bp8l")
-}
-
-[node name="ParryDuration" type="Timer" parent="Blade"]
-one_shot = true
-
-[node name="ParryCooldown" type="Timer" parent="Blade"]
-wait_time = 2.0
-one_shot = true
-
 [node name="SnakeHeadSprite" type="Sprite2D" parent="."]
 z_index = 3
 z_as_relative = false
@@ -538,6 +493,10 @@ shape = SubResource("CircleShape2D_dein3")
 wait_time = 3.0
 one_shot = true
 
+[node name="ParryCooldown" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
 [node name="HitFlash" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_psrv5")
@@ -546,6 +505,4 @@ libraries = {
 [connection signal="timeout" from="Blade/BladeCooldown" to="." method="_on_blade_cooldown_timeout"]
 [connection signal="timeout" from="Blade/BladeCooldown" to="Blade" method="_on_blade_cooldown_timeout"]
 [connection signal="timeout" from="Blade/DashCooldown" to="." method="_on_dash_cooldown_timeout"]
-[connection signal="timeout" from="Blade/ParryDuration" to="." method="_on_parry_duration_timeout"]
-[connection signal="timeout" from="Blade/ParryCooldown" to="." method="_on_parry_cooldown_timeout"]
 [connection signal="timeout" from="HealCooldown" to="." method="_on_heal_cooldown_timeout"]
