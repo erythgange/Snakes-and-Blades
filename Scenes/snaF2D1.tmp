@@ -522,15 +522,12 @@ one_shot = true
 [node name="Hitbox" parent="Blade" instance=ExtResource("5_elf4f")]
 position = Vector2(-3, 8.9407e-08)
 collision_layer = 32
-collision_mask = 253
+collision_mask = 4
 script = ExtResource("5_oacyh")
 
 [node name="HitboxShape" parent="Blade/Hitbox" index="0"]
 position = Vector2(3, -9)
 shape = SubResource("CapsuleShape2D_02c6n")
-
-[node name="Timer" type="Timer" parent="Blade/Hitbox"]
-autostart = true
 
 [node name="SnakeHeadSprite" type="Sprite2D" parent="."]
 z_index = 3
@@ -570,8 +567,6 @@ shape = SubResource("CapsuleShape2D_miu6b")
 [connection signal="timeout" from="Blade/DashCooldown" to="." method="_on_dash_cooldown_timeout"]
 [connection signal="timeout" from="Blade/ParryDuration" to="." method="_on_parry_duration_timeout"]
 [connection signal="timeout" from="Blade/ParryCooldown" to="." method="_on_parry_cooldown_timeout"]
-[connection signal="area_entered" from="Blade/Hitbox" to="Blade/Hitbox" method="_on_area_entered"]
-[connection signal="timeout" from="Blade/Hitbox/Timer" to="Blade/Hitbox" method="_on_timer_timeout"]
 [connection signal="timeout" from="UpdateBodyCooldown" to="." method="_on_update_body_cooldown_timeout"]
 [connection signal="timeout" from="UpdateBodyCooldown" to="." method="_on_heal_cooldown_timeout"]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]

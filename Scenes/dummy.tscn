@@ -1,30 +1,94 @@
-[gd_scene load_steps=5 format=3 uid="uid://1pdgrog7an1k"]
+[gd_scene load_steps=11 format=3 uid="uid://1pdgrog7an1k"]
 
-[ext_resource type="Texture2D" uid="uid://b25pigpqhuxy2" path="res://Assets/sample red dot.png" id="1_dilt6"]
+[ext_resource type="Script" path="res://Scripts/dummy.gd" id="1_bke4x"]
+[ext_resource type="Texture2D" uid="uid://c04ncdtw62y8o" path="res://Assets/snake8x8head.png" id="1_xwotp"]
+[ext_resource type="Shader" uid="uid://ctopg7qwltrnt" path="res://Shaders/hit_flash.tres" id="2_ew4oe"]
 [ext_resource type="PackedScene" uid="uid://bjrradvp813fy" path="res://overlap/Hurtbox.tscn" id="2_tc4nc"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_gpc6d"]
-radius = 8.06226
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_a820f"]
+resource_local_to_scene = true
+shader = ExtResource("2_ew4oe")
+shader_parameter/enabled = false
+shader_parameter/tint = Color(1, 1, 1, 1)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_0rn2j"]
-radius = 13.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5k8ul"]
+radius = 3.0
+height = 6.0
 
-[node name="dummy" type="RigidBody2D"]
+[sub_resource type="Animation" id="Animation_kww75"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SnakeHeadSprite:material:shader_parameter/enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_bg31a"]
+resource_name = "HitFlash"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SnakeHeadSprite:material:shader_parameter/enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_psrv5"]
+_data = {
+"RESET": SubResource("Animation_kww75"),
+"hit_flash": SubResource("Animation_bg31a")
+}
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fkfg8"]
+radius = 4.0
+height = 10.0
+
+[node name="dummy" type="CharacterBody2D"]
 scale = Vector2(4, 4)
+collision_layer = 2
+collision_mask = 63
+script = ExtResource("1_bke4x")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(4, 4)
-texture = ExtResource("1_dilt6")
+[node name="SnakeHeadSprite" type="Sprite2D" parent="."]
+z_index = 3
+z_as_relative = false
+material = SubResource("ShaderMaterial_a820f")
+position = Vector2(1, 0)
+rotation = 1.5708
+texture = ExtResource("1_xwotp")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-z_index = -1
-scale = Vector2(4, 4)
-shape = SubResource("CircleShape2D_gpc6d")
+[node name="HeadCollission" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_5k8ul")
+
+[node name="HitFlash" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_psrv5")
+}
+
+[node name="PopupNumbersOrigin" type="Node2D" parent="."]
+position = Vector2(0, -7)
+rotation = 1.5708
 
 [node name="Hurtbox" parent="." instance=ExtResource("2_tc4nc")]
-scale = Vector2(4, 4)
+collision_layer = 2
+collision_mask = 40
 
 [node name="HurtboxShape" parent="Hurtbox" index="0"]
-shape = SubResource("CircleShape2D_0rn2j")
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_fkfg8")
 
 [editable path="Hurtbox"]

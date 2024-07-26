@@ -1,25 +1,25 @@
 extends CharacterBody2D
 
+# Base values
+var health: int = 100
+@onready var popup_number_position = $PopupNumbersOrigin
+@onready var hit_flash = $HitFlash
 
-var debug = preload("res://Scenes/debug.tscn")
-var timer = true
-var bounce: Vector2
+func _physics_process(delta) -> void:
+	if health < 0:
+		self.queue_free()
 
-func _physics_process(delta):
-	
-	velocity = Vector2(10,0).normalized().rotated(rotation) * 100
+func _hitstun(time) -> void:
+	Engine.time_scale = 0
+	await get_tree().create_timer(time, true, false, true).timeout
+	Engine.time_scale = 1
 
-	var collision = move_and_collide(velocity*delta)
-	if !(collision == null): # and if speed is h0-igh
-		var bounce = (velocity.bounce(collision.get_normal()) + global_position )
-		look_at(bounce)
-	else: move_and_slide()
-	
+func _hurt(damage: int, is_collision: bool):
+	PopupNumbers.display_number(damage, popup_number_position.global_position, true)
+	hit_flash.play("hit_flash")
+	_hitstun(damage/100+.2)
+	if is_collision == true and health < 1: health = 1 # cant die in collision
+	else: health -= damage
 
-func _on_timer_timeout():
-	timer = true
-
-func _debug(pos):
-	var debug = debug.instantiate()
-	debug.global_position = pos
-	add_sibling(debug)
+func _ready():
+	_hurt(1, false)

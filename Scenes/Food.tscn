@@ -1,6 +1,5 @@
-[gd_scene load_steps=7 format=3 uid="uid://mj35qkxdglcs"]
+[gd_scene load_steps=6 format=3 uid="uid://mj35qkxdglcs"]
 
-[ext_resource type="Script" path="res://Scripts/Food.gd" id="1_afids"]
 [ext_resource type="Texture2D" uid="uid://bin3scc50n2pr" path="res://Assets/apple.png" id="1_fl2rv"]
 [ext_resource type="PackedScene" uid="uid://dteoryyncno8w" path="res://overlap/Hitbox.tscn" id="2_j1x7l"]
 [ext_resource type="Script" path="res://overlap/FoodHitbox.gd" id="3_m6cm8"]
@@ -14,7 +13,9 @@ radius = 19.0
 [node name="Food" type="RigidBody2D"]
 collision_layer = 8
 collision_mask = 63
-script = ExtResource("1_afids")
+mass = 0.01
+gravity_scale = 0.0
+linear_damp = 5.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_dybx0")

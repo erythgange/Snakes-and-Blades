@@ -1,8 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://h05bpqqsdr21"]
+[gd_scene load_steps=7 format=3 uid="uid://h05bpqqsdr21"]
 
 [ext_resource type="PackedScene" uid="uid://c6yg1bkqw8ldx" path="res://Scenes/snake_head.tscn" id="1_c38un"]
 [ext_resource type="Texture2D" uid="uid://cqnhqnsinv0ah" path="res://Assets/random placeholder tileset.png" id="3_dof31"]
-[ext_resource type="PackedScene" uid="uid://mj35qkxdglcs" path="res://Scenes/Food.tscn" id="4_vjl6c"]
 [ext_resource type="PackedScene" uid="uid://1pdgrog7an1k" path="res://Scenes/dummy.tscn" id="4_yd2hi"]
 [ext_resource type="PackedScene" uid="uid://cldtufdwg5hbn" path="res://Scenes/FoodSpawner.tscn" id="5_s0f5i"]
 
@@ -42,22 +41,12 @@ rendering_quadrant_size = 8
 format = 2
 layer_0/tile_data = PackedInt32Array(0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 6, 0, 0, 7, 0, 0, 8, 0, 0, 9, 0, 0, 10, 0, 0, 11, 0, 0, 12, 0, 0, 13, 0, 0, 25, 0, 0, 24, 0, 0, 23, 0, 0, 22, 0, 0, 21, 0, 0, 20, 0, 0, 19, 0, 0, 18, 0, 0, 17, 0, 0, 16, 0, 0, 15, 0, 0, 14, 0, 0, 26, 0, 0, 27, 0, 0, 28, 0, 0, 29, 0, 0, 65536, 0, 0, 131072, 0, 0, 196608, 0, 0, 262144, 0, 0, 327680, 0, 0, 393216, 0, 0, 458752, 0, 0, 524288, 0, 0, 589824, 0, 0, 655360, 0, 0, 720896, 0, 0, 786432, 0, 0, 851968, 0, 0, 917504, 0, 0, 983040, 0, 0, 1048576, 0, 0, 1048577, 0, 0, 1048578, 0, 0, 1048579, 0, 0, 1048580, 0, 0, 1048581, 0, 0, 1048582, 0, 0, 1048583, 0, 0, 1048584, 0, 0, 1048585, 0, 0, 1048586, 0, 0, 1048587, 0, 0, 1048588, 0, 0, 1048589, 0, 0, 1048590, 0, 0, 1048591, 0, 0, 1048592, 0, 0, 1048593, 0, 0, 1048594, 0, 0, 1048595, 0, 0, 1048596, 0, 0, 1048597, 0, 0, 1048598, 0, 0, 1048599, 0, 0, 1048600, 0, 0, 1048601, 0, 0, 1048602, 0, 0, 1048603, 0, 0, 1048604, 0, 0, 1048605, 0, 0, 983069, 0, 0, 917533, 0, 0, 851997, 0, 0, 786461, 0, 0, 720925, 0, 0, 655389, 0, 0, 589853, 0, 0, 524317, 0, 0, 458781, 0, 0, 393245, 0, 0, 327709, 0, 0, 262173, 0, 0, 196637, 0, 0, 131101, 0, 0, 65565, 0, 0, 196612, 0, 1, 196613, 0, 1, 196614, 0, 1, 196615, 0, 1, 196616, 0, 1, 851993, 0, 1, 851992, 0, 1, 851991, 0, 1, 851990, 0, 1, 851989, 0, 1, 458765, 65536, 0, 524301, 65536, 0, 589837, 65536, 0, 589838, 65536, 0, 589839, 65536, 0, 458766, 65536, 0, 458767, 65536, 0, 524303, 65536, 0, 524302, 65536, 0)
 
-[node name="dummy" parent="." instance=ExtResource("4_yd2hi")]
-position = Vector2(745, 284)
-scale = Vector2(1, 1)
-
 [node name="SnakeHead" parent="." instance=ExtResource("1_c38un")]
 position = Vector2(195, 276)
 scale = Vector2(4, 4)
 
-[node name="Food" parent="." instance=ExtResource("4_vjl6c")]
-position = Vector2(285, 330)
-
-[node name="Food2" parent="." instance=ExtResource("4_vjl6c")]
-position = Vector2(423, 374)
-
-[node name="Food3" parent="." instance=ExtResource("4_vjl6c")]
-position = Vector2(452, 175)
-
 [node name="FoodSpawner" parent="." instance=ExtResource("5_s0f5i")]
 position = Vector2(463, 271)
+
+[node name="dummy" parent="." instance=ExtResource("4_yd2hi")]
+position = Vector2(703, 255)

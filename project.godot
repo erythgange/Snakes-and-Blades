@@ -62,6 +62,7 @@ Right={
 2d_physics/layer_4="Food"
 2d_physics/layer_5="Obstacles"
 2d_physics/layer_6="Blade"
+2d_physics/layer_10="SnakeHead2"
 
 [physics]
 

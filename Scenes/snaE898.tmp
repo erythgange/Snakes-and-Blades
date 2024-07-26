@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://b4fsevfm2ixip"]
+
+[ext_resource type="Script" path="res://Scripts/snake_body.gd" id="1_ar5ve"]
+[ext_resource type="PackedScene" uid="uid://bjrradvp813fy" path="res://overlap/Hurtbox.tscn" id="2_e4a04"]
+[ext_resource type="Texture2D" uid="uid://4dwp1fsyids6" path="res://Assets/snake8x8body.png" id="2_os3fy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_daksh"]
+size = Vector2(3.99997, 8.00001)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lcgnv"]
+size = Vector2(5, 9)
+
+[node name="SnakeBody" type="CharacterBody2D"]
+scale = Vector2(4, 4)
+collision_layer = 4
+collision_mask = 31
+script = ExtResource("1_ar5ve")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_daksh")
+
+[node name="SnakeBodySprite" type="Sprite2D" parent="."]
+rotation = 1.5708
+texture = ExtResource("2_os3fy")
+
+[node name="Hurtbox" parent="." instance=ExtResource("2_e4a04")]
+
+[node name="HurtboxShape" parent="Hurtbox" index="0"]
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_lcgnv")
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+
+[editable path="Hurtbox"]
