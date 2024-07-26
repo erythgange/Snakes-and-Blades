@@ -16,6 +16,10 @@ run/main_scene="res://Scenes/main.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://Snakes and Blades/Snakes n Blades Logo Small Dark.png"
 
+[autoload]
+
+PopupNumbers="*res://Scripts/PopupNumbers.gd"
+
 [display]
 
 window/size/viewport_width=960
@@ -52,9 +56,12 @@ Right={
 
 [layer_names]
 
-2d_physics/layer_1="Player"
-2d_physics/layer_2="Obstacles"
-2d_physics/layer_3="Food"
+2d_physics/layer_1="Environment"
+2d_physics/layer_2="SnakeHead"
+2d_physics/layer_3="SnakeBody"
+2d_physics/layer_4="Food"
+2d_physics/layer_5="Obstacles"
+2d_physics/layer_6="Blade"
 
 [physics]
 

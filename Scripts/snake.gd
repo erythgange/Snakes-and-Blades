@@ -1,17 +1,16 @@
 extends CharacterBody2D
 
 # Base values
-@export var health: int = 50
-@export var current_body_count: int = 1
-@export var speed: float = 100
-@export var max_speed: float = current_body_count * 100
-
+var health: int = 50
+var current_body_count: int = 1
+var speed: float = 100
+var max_speed: float = current_body_count * 100
 var global_position_last: Vector2 = global_position
 
 # Stat Modifiers (additive values)
-@export var bonus_speed: float = 0
-@export var bonus_turn_speed: int = 0
-@export var charge: float = 0
+var bonus_speed: float = 0
+var bonus_turn_speed: int = 0
+var charge: float = 0
 
 # States
 var is_dashing: bool = false
@@ -24,39 +23,32 @@ var is_blade_on_cooldown: bool = false
 var is_parrying: bool = false
 var is_parry_on_cooldown: bool = false
 
+var can_update_body: bool = true
 var can_speedup: bool = true
-var can_grow_body: bool = true
 var is_snake_healed: bool = false
 var is_snake_damaged: bool = false
 
-
 # Scenes to instantiate/duplicate (i.e. the body and the tail)
 var snake_body = preload("res://Scenes/snake_body.tscn")
-
 
 # animations 
 @onready var blade_animation = $Blade/BladeAnimation
 @onready var blade_parry = $Blade/BladeParry
 @onready var hit_flash = $HitFlash
 @onready var snake_head_sprite = $SnakeHeadSprite
+@onready var popup_number_position = $PopupNumbersOrigin
 
 # timers and cooldowns
 @onready var parry_cooldown = $Blade/ParryCooldown
 @onready var parry_duration = $Blade/ParryDuration
 @onready var blade_cooldown = $Blade/BladeCooldown
 @onready var dash_cooldown =  $Blade/DashCooldown
-@onready var heal_cooldown = $HealCooldown
-
-
+@onready var update_body_cooldown = $UpdateBodyCooldown
 
 # array containers 
 var position_history = []
 var rotation_history = []
 var body_parts = []
-
-
-
-
 var gap: int = 2
 
 
@@ -65,16 +57,10 @@ func _physics_process(delta) -> void:
 	
 	_create_body()
 	# (to be implemented) randomize instantiate food
-	_grow_body()
-	
+	_update_body()
 	# (to be implemented) if collided with food: heal, food deleted
-	
-
-
 	_attack()
 	_parry()
-	
-
 	
 	#Turn left or right + slight speed boost (for moving like a snake!)
 	var turn_speed: int = speed/2 + 100
@@ -102,21 +88,16 @@ func _physics_process(delta) -> void:
 		if is_parrying == true: # if collided while parrying:
 			parry_cooldown.stop()
 			parry_cooldown.emit_signal("timeout") # resets parry cooldown
-			speed += speed*0.1
 			# play success parry animation
 		else: # if collided while not parrying:
 			_hurt(10, true) # 10 damage when colliding
-			speed = speed/2 # 50% speed loss when colliding
+			speed = speed*0.75 # 75% speed loss when colliding
 			if speed < 50: speed = 50 # minimum speed
-		
+			print(velocity)
 	else: move_and_slide()
 	
 	
-
-
-
-
-
+	
 func _create_body():
 		# stores position_history every 1 distance traveled of snake (instead of every frame)
 	if (global_position_last.distance_to(global_position)) > current_body_count/10 + 10:
@@ -129,44 +110,45 @@ func _create_body():
 		position_history.pop_front()
 	
 	#move body parts
-	for x in body_parts.size():
-		var point = min(-1-(x*gap), position_history.count(-1))
-		body_parts[x].global_position = lerp(body_parts[x].global_position, position_history[point], .5)
-		body_parts[x].global_rotation = lerp_angle(body_parts[x].global_rotation, rotation_history[point], .8)
+	if position_history.size() > body_parts.size()*gap:
+		for x in body_parts.size():
+			var point = -1-(x*gap)
+			body_parts[x].global_position = lerp(body_parts[x].global_position, position_history[point], .5)
+			body_parts[x].global_rotation = lerp_angle(body_parts[x].global_rotation, rotation_history[point], .8)
 
-func _grow_body():
-	if can_grow_body == true and health/10 > current_body_count:
-		heal_cooldown.start()
-		can_grow_body = false
+func _update_body():
+
+	print(current_body_count)
+	if health/10 > current_body_count:
+		can_update_body = false
 		current_body_count += 1
 		var snake_body = snake_body.instantiate()
 		snake_body.global_position = global_position
 		body_parts.append(snake_body)
 		add_sibling(snake_body)
+	if health/10 < current_body_count:
+		can_update_body = false
+		current_body_count -= 1
+		body_parts.pop_back()
+			
 
 func _ready():
 	print("running func _ready():")
-	
 
-func _hurt(damage: int, is_collission: bool):
-	health -= damage
-	# damage pop-up
+func _hurt(damage: int, is_collision: bool):
+	PopupNumbers.display_number(damage, popup_number_position.global_position, true)
 	hit_flash.play("hit_flash")
-	
 	# hit stun the snake
-	if is_collission == true and health == 1: # can't die in collission
-		return
-	else: for x in damage: 
-		pass # execute this x amount of times the damage
-			# remove_child
+	if is_collision == true and health < 1: health = 1 # cant die in collision
+	else: health -= damage
 			
-func _heal(amount: int):
-	health += amount
-	# heal pop-up
-	# play entity flash animation
+func _heal(heal: int):
+	PopupNumbers.display_number(heal, popup_number_position.global_position, false)
+	hit_flash.play("hit_flash")
+	health += heal
 
-func _on_heal_cooldown_timeout():
-	can_grow_body = true
+func _on_update_body_cooldown_timeout():
+	can_update_body = true
 	print("Snake Healed!")
 	
 func _parry():
@@ -175,7 +157,7 @@ func _parry():
 		is_parry_on_cooldown = true
 		can_speedup = false
 		
-		parry_duration.start(speed/1000) # parry duration = based on speed
+		parry_duration.start(speed/500) # parry duration = based on speed
 		blade_parry.play("blade_parry") # start animation
 		is_parrying = true
 		print(is_parrying)
@@ -204,7 +186,7 @@ func _attack():
 				
 				bonus_speed = speed * 2
 				bonus_turn_speed = -10
-				print("Dashed!")
+				print("Dashed!")     
 
 			# if less than 3 charge, play a basic animation
 			else: 
@@ -251,3 +233,9 @@ func _on_parry_duration_timeout():
 	is_parrying = false
 	blade_parry.play("RESET")
 	print("parry duration timeout!")
+
+
+
+
+
+
