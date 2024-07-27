@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://c6yg1bkqw8ldx"]
+[gd_scene load_steps=30 format=3 uid="uid://c6yg1bkqw8ldx"]
 
 [ext_resource type="Script" path="res://Scripts/snake.gd" id="1_finu5"]
 [ext_resource type="Shader" uid="uid://ctopg7qwltrnt" path="res://Shaders/hit_flash.tres" id="2_vysku"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dteoryyncno8w" path="res://overlap/Hitbox.tscn" id="5_elf4f"]
 [ext_resource type="Script" path="res://overlap/BladeHitbox.gd" id="5_oacyh"]
 [ext_resource type="PackedScene" uid="uid://bjrradvp813fy" path="res://overlap/Hurtbox.tscn" id="6_wirtk"]
+[ext_resource type="Texture2D" uid="uid://b25pigpqhuxy2" path="res://Assets/sample red dot.png" id="8_bpgga"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_etgld"]
 resource_local_to_scene = true
@@ -398,6 +399,18 @@ tracks/0/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Sprite2D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_qytr5"]
 resource_name = "blade_parry"
@@ -412,7 +425,19 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Sprite2D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 0, 1), Color(1, 1, 0, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6bp8l"]
@@ -522,7 +547,7 @@ one_shot = true
 [node name="Hitbox" parent="Blade" instance=ExtResource("5_elf4f")]
 position = Vector2(-3, 8.9407e-08)
 collision_layer = 32
-collision_mask = 253
+collision_mask = 765
 script = ExtResource("5_oacyh")
 
 [node name="HitboxShape" parent="Blade/Hitbox" index="0"]
@@ -564,6 +589,12 @@ collision_mask = 40
 [node name="HurtboxShape" parent="Hurtbox" index="0"]
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_miu6b")
+
+[node name="CameraMarker" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(16, 0)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("8_bpgga")
 
 [connection signal="timeout" from="Blade/BladeCooldown" to="." method="_on_blade_cooldown_timeout"]
 [connection signal="timeout" from="Blade/BladeCooldown" to="Blade" method="_on_blade_cooldown_timeout"]

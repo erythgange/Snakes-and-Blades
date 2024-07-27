@@ -1,16 +1,16 @@
 [gd_scene load_steps=11 format=3 uid="uid://b4fsevfm2ixip"]
 
-[ext_resource type="Script" path="res://Scripts/snake_body.gd" id="1_ar5ve"]
-[ext_resource type="Shader" uid="uid://ctopg7qwltrnt" path="res://Shaders/hit_flash.tres" id="2_7ultm"]
-[ext_resource type="PackedScene" uid="uid://bjrradvp813fy" path="res://overlap/Hurtbox.tscn" id="2_e4a04"]
-[ext_resource type="Texture2D" uid="uid://4dwp1fsyids6" path="res://Assets/snake8x8body.png" id="2_os3fy"]
+[ext_resource type="Script" path="res://Scripts/snake_body.gd" id="1_nv0ds"]
+[ext_resource type="Shader" uid="uid://ctopg7qwltrnt" path="res://Shaders/hit_flash.tres" id="2_0b0yh"]
+[ext_resource type="Texture2D" uid="uid://4dwp1fsyids6" path="res://Assets/snake8x8body.png" id="3_0m78i"]
+[ext_resource type="PackedScene" uid="uid://bjrradvp813fy" path="res://overlap/Hurtbox.tscn" id="4_gvyeu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_daksh"]
 size = Vector2(3.99997, 8.00001)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qy50r"]
 resource_local_to_scene = true
-shader = ExtResource("2_7ultm")
+shader = ExtResource("2_0b0yh")
 shader_parameter/enabled = false
 shader_parameter/tint = Color(1, 1, 1, 1)
 
@@ -61,7 +61,7 @@ collision_mask = 57
 mass = 0.01
 gravity_scale = 0.0
 linear_damp = 5.0
-script = ExtResource("1_ar5ve")
+script = ExtResource("1_nv0ds")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5708
@@ -72,9 +72,9 @@ shape = SubResource("RectangleShape2D_daksh")
 material = SubResource("ShaderMaterial_qy50r")
 rotation = 1.5708
 scale = Vector2(4, 4)
-texture = ExtResource("2_os3fy")
+texture = ExtResource("3_0m78i")
 
-[node name="Hurtbox" parent="." instance=ExtResource("2_e4a04")]
+[node name="Hurtbox" parent="." instance=ExtResource("4_gvyeu")]
 scale = Vector2(4, 4)
 
 [node name="HurtboxShape" parent="Hurtbox" index="0"]

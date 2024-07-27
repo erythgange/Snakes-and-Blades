@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/FoodSpawner.gd" id="1_du1ff"]
 
-[node name="FoodSpawner" type="Area2D"]
+[node name="FoodSpawner" type="Node2D"]
 script = ExtResource("1_du1ff")
 
 [node name="Timer" type="Timer" parent="."]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://mj35qkxdglcs"]
 
-[ext_resource type="Texture2D" uid="uid://bin3scc50n2pr" path="res://Assets/apple.png" id="1_fl2rv"]
+[ext_resource type="Texture2D" uid="uid://b25pigpqhuxy2" path="res://Assets/sample red dot.png" id="1_0pfxu"]
 [ext_resource type="PackedScene" uid="uid://dteoryyncno8w" path="res://overlap/Hitbox.tscn" id="2_j1x7l"]
 [ext_resource type="Script" path="res://overlap/FoodHitbox.gd" id="3_m6cm8"]
 
@@ -21,9 +21,7 @@ linear_damp = 5.0
 shape = SubResource("CircleShape2D_dybx0")
 
 [node name="Apple" type="Sprite2D" parent="."]
-position = Vector2(0, -1)
-scale = Vector2(0.055, 0.055)
-texture = ExtResource("1_fl2rv")
+texture = ExtResource("1_0pfxu")
 
 [node name="Hitbox" parent="." instance=ExtResource("2_j1x7l")]
 collision_layer = 8

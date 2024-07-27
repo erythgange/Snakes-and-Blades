@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bj2jpsecwx1cs"]
+
+[ext_resource type="Texture2D" uid="uid://c04ncdtw62y8o" path="res://Assets/snake8x8head.png" id="1_mosxm"]
+
+[node name="PlayerSpawner" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 1.5708
+texture = ExtResource("1_mosxm")

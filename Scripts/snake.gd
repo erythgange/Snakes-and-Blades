@@ -3,9 +3,11 @@ extends CharacterBody2D
 # Base values
 var health: int = 10
 var current_body_count: int = health/10
-var speed: float = current_body_count * 50
+@export var speed: float = current_body_count * 50
 var max_speed = current_body_count * 50
 var global_position_last: Vector2 = global_position
+
+@export var controls: Resource = null
 
 # Stat Modifiers (additive values)
 var bonus_speed: float = 0
@@ -29,7 +31,7 @@ var is_snake_healed: bool = false
 var is_snake_damaged: bool = false
 
 # Scenes to instantiate/duplicate (i.e. the body and the tail)
-var snake_body = preload("res://Scenes/snake_body.tscn")
+var snake_body = preload("res://Player/snake_body.tscn")
 
 # animations 
 @onready var blade_animation = $Blade/BladeAnimation
@@ -37,6 +39,7 @@ var snake_body = preload("res://Scenes/snake_body.tscn")
 @onready var hit_flash = $HitFlash
 @onready var snake_head_sprite = $SnakeHeadSprite
 @onready var popup_number_position = $PopupNumbersOrigin
+@onready var camera = $Camera2D
 
 # timers and cooldowns
 @onready var parry_cooldown = $Blade/ParryCooldown
@@ -52,6 +55,11 @@ var body_parts = []
 var gap: int = 2
 
 
+
+
+
+	
+
 # this function runs every frame. so 60 times per second or more.
 func _physics_process(delta) -> void:	
 	
@@ -62,18 +70,19 @@ func _physics_process(delta) -> void:
 	
 	#Turn left or right
 	var turn_speed: int = speed/2 + 300
-	if Input.is_action_pressed("Left") and not Input.is_action_pressed("Right"):
+	if Input.is_action_pressed(controls.left) and not Input.is_action_pressed(controls.right):
 		rotate(deg_to_rad( -(turn_speed + bonus_turn_speed) * delta) )
-		speed -= .01
-	if Input.is_action_pressed("Right") and not Input.is_action_pressed("Left"):
+		
+	if Input.is_action_pressed(controls.right) and not Input.is_action_pressed(controls.left):
 		rotate(deg_to_rad( (turn_speed + bonus_turn_speed) * delta) )
-		speed -= .01
+		
 	
 	# speed manager
-	velocity = Vector2((speed+bonus_speed),0).rotated(rotation)
+	velocity = Vector2((speed+bonus_speed),0).rotated(rotation) * delta * 100
 	var max_speed = current_body_count * 50
 	if speed < max_speed and can_speedup == true:
-		speed += (health * 0.005)
+		speed += (health * .1) * delta
+	$CameraMarker.position.x = (speed+bonus_speed)*.1
 	
 	# collide effects: bounce and if -1 if not parrying
 	var collision = move_and_collide(velocity*delta)
@@ -85,23 +94,31 @@ func _physics_process(delta) -> void:
 		if is_parrying == true: # if collided while parrying:
 			parry_cooldown.stop()
 			parry_cooldown.emit_signal("timeout") # resets parry cooldown
+			_hitstun(speed * .001)
 			# play success parry animation
 		else: # if collided while not parrying:
-			_hurt((speed+bonus_speed)/10, true) # 10 damage when colliding
+			_hurt((speed+bonus_speed)/10, true) # damage when colliding
 			speed = speed*0.75 #speed loss when colliding
 			if speed < 50: speed = 50 # minimum speed
 	else: move_and_slide()
 
+
+
+
+
+
+
+
 	
 func _create_body():
 		# stores position_history every 1 distance traveled of snake (instead of every frame)
-	if (global_position_last.distance_to(global_position)) > current_body_count/10 + 10:
+	if (global_position_last.distance_to(global_position)) > current_body_count/9 + 8:
 		global_position_last = global_position
 		position_history.append(global_position)
 		rotation_history.append(global_rotation)
 		
 	# snake cant grow past the health value
-	if position_history.size() > current_body_count*10:
+	if position_history.size() > (current_body_count+1) *2:
 		position_history.pop_front()
 	
 	#move body parts
@@ -124,29 +141,37 @@ func _update_body():
 		if speed > max_speed:
 			speed = max_speed
 		current_body_count -= 1
-		var tween = create_tween()
-		var left_body_part = body_parts[-1]
-		body_parts.pop_back()
-		left_body_part.set_collision_mask_value(2, true)
-		left_body_part.set_collision_mask_value(3, true)
-		left_body_part.hit_flash.play("hit_flash")
-		tween.set_parallel(true)
-		tween.tween_property(left_body_part, "rotation", left_body_part.rotation+randf_range(-1,1)*10, 1).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
-		#tween.tween_property(left_body_part, "position", left_body_part.global_position + Vector2(randf_range(-2,2)*speed,randf_range(-2,2)*speed), 1).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
-		left_body_part._detached()
+		if !body_parts.is_empty(): 
+			var tween = create_tween()
+			var left_body_part = body_parts[-1]
+			body_parts.pop_back()
+			left_body_part.set_collision_mask_value(2, true)
+			left_body_part.set_collision_mask_value(3, true)
+			left_body_part.hit_flash.play("hit_flash")
+			tween.set_parallel(true)
+			tween.tween_property(left_body_part, "rotation", left_body_part.rotation+randf_range(-1,1)*10, 1).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+			#tween.tween_property(left_body_part, "position", left_body_part.global_position + Vector2(randf_range(-2,2)*speed,randf_range(-2,2)*speed), 1).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+			left_body_part._detached()
 			
 
 func _hitstun(time) -> void:
-	Engine.time_scale = 0
-	await get_tree().create_timer(time, true, false, true).timeout
+	Engine.time_scale = 0.01
+	await get_tree().create_timer(time, true, true, true).timeout
 	Engine.time_scale = 1
 
 func _hurt(damage: int, is_collision: bool):
+	if is_collision == true and (health - damage) <= 0: 
+		damage = 0 # cant die in collision
+	else: health -= damage
+	
 	PopupNumbers.display_number(damage, popup_number_position.global_position, true)
 	hit_flash.play("hit_flash")
-	_hitstun(.2)
-	if is_collision == true and health < 1: health = 1 # cant die in collision
-	else: health -= damage
+	_hitstun(0.1 + (damage * .01))
+	
+	if health <= 0: _die()
+
+func _die():
+	self.queue_free
 			
 func _heal(heal: int):
 	if (heal + health) > 100:
@@ -158,10 +183,9 @@ func _heal(heal: int):
 
 func _on_update_body_cooldown_timeout():
 	can_update_body = true
-
 	
 func _parry():
-	if is_parry_on_cooldown == false and Input.is_action_just_pressed("Parry"):
+	if is_parry_on_cooldown == false and Input.is_action_just_pressed(controls.parry):
 		parry_cooldown.start()
 		is_parry_on_cooldown = true
 		can_speedup = false
@@ -174,7 +198,7 @@ func _attack():
 	# Charge and Dash + animations
 	if is_dash_on_cooldown == false and is_blade_on_cooldown == false:
 		# dash is pressed Charge from 0 up to 10.
-		if Input.is_action_pressed("Dash") and charge < 10:
+		if Input.is_action_pressed(controls.dash) and charge < 10:
 			charge += .1
 			if is_blade_on_left_side == true: 
 				blade_animation.play("blade_charge")
@@ -182,7 +206,7 @@ func _attack():
 			speed -= (speed*0.001)
 			can_speedup = false
 		# dash released
-		if Input.is_action_just_released("Dash"):
+		if Input.is_action_just_released(controls.dash):
 			#Dash if charge reaches 3/10
 			if charge > 3:
 				if is_blade_on_left_side == true: 
@@ -236,9 +260,4 @@ func _on_parry_cooldown_timeout():
 func _on_parry_duration_timeout():
 	is_parrying = false
 	blade_parry.play("RESET")
-
-
-
-
-
 
