@@ -428,7 +428,7 @@ custom_data_layer_0/name = ""
 custom_data_layer_0/type = 0
 sources/0 = SubResource("TileSetAtlasSource_1ac2s")
 
-[sub_resource type="Resource" id="Resource_d58sj"]
+[sub_resource type="Resource" id="Resource_u6ymm"]
 resource_local_to_scene = true
 script = ExtResource("14_k8dfb")
 player_index = 1
@@ -522,7 +522,6 @@ offset_right = -335.0
 offset_bottom = -214.0
 
 [node name="PauseMenu" parent="Camera2D" instance=ExtResource("6_iiamt")]
-visible = false
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
@@ -547,7 +546,7 @@ max_food = 3
 
 [node name="SnakeSpawnerP1" parent="." instance=ExtResource("9_e0wcg")]
 position = Vector2(-1107, 271)
-controls = SubResource("Resource_d58sj")
+controls = SubResource("Resource_u6ymm")
 
 [node name="Shine" parent="SnakeSpawnerP1" index="0"]
 position = Vector2(478, 147)

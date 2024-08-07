@@ -229,7 +229,7 @@ func _hurt(damage: int, is_collision: bool, speed: float) -> void:
 			invulnerable = false
 
 func _die() -> void:
-	$".."._game_over(index)
+	$".."._game_over(controls.player_index)
 	Engine.time_scale = 0
 	self.queue_free()
 

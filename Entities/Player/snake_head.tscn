@@ -1,6 +1,7 @@
-[gd_scene load_steps=39 format=3 uid="uid://c6yg1bkqw8ldx"]
+[gd_scene load_steps=40 format=3 uid="uid://c6yg1bkqw8ldx"]
 
 [ext_resource type="Script" path="res://Entities/Player/snake.gd" id="1_finu5"]
+[ext_resource type="Script" path="res://Entities/Player/Controls/PlayerControls.gd" id="2_84nlh"]
 [ext_resource type="Shader" uid="uid://ctopg7qwltrnt" path="res://Shaders/hit_flash.tres" id="2_vysku"]
 [ext_resource type="Texture2D" uid="uid://b53yma3avkej2" path="res://Assets/line-Sheet.png" id="3_eor64"]
 [ext_resource type="Texture2D" uid="uid://e0qj06fy4lhl" path="res://Assets/Snake/SnakeSheet.png" id="4_ok4lm"]
@@ -343,6 +344,7 @@ scale = Vector2(4, 4)
 collision_layer = 2
 collision_mask = 6
 script = ExtResource("1_finu5")
+controls = ExtResource("2_84nlh")
 metadata/_edit_vertical_guides_ = [84.0]
 
 [node name="DashParticles" type="GPUParticles2D" parent="."]
@@ -488,8 +490,8 @@ environment = SubResource("Environment_uqbxj")
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
 [connection signal="area_entered" from="Hitbox" to="Hitbox" method="_on_area_entered"]
 [connection signal="body_entered" from="Blade" to="." method="_on_blade_body_entered"]
-[connection signal="animation_finished" from="Blade/BladeAnimations" to="." method="_on_blade_animations_finished"]
 [connection signal="animation_finished" from="Blade/BladeAnimations" to="." method="_on_blade_animations_animation_finished"]
+[connection signal="animation_finished" from="Blade/BladeAnimations" to="." method="_on_blade_animations_finished"]
 
 [editable path="Hurtbox"]
 [editable path="Hitbox"]

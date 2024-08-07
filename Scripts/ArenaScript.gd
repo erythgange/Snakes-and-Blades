@@ -16,6 +16,7 @@ func _get_snake_signal(index):
 
 func _game_over(snake_lost: int):
 	print("Game Over!")
+	print(snake_lost)
 	if snake_lost == 1: $Winner.text = "P2 WINS!"
 	if snake_lost == 2: $Winner.text = "P1 WINS!"
 	$Winner.visible = true
