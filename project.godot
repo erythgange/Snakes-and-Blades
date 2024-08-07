@@ -14,6 +14,7 @@ config/name="Snakes and Blades"
 config/description="Snakes and Ladders but with blades, no ladders"
 run/main_scene="res://Scenes/Lobby.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
+boot_splash/show_image=false
 config/icon="res://Snakes and Blades/Snakes n Blades Logo Small Dark.png"
 
 [display]

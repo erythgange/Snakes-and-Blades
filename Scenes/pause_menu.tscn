@@ -39,10 +39,6 @@ alignment = 1
 layout_mode = 2
 text = "Resume"
 
-[node name="Keybinds" type="Button" parent="PanelContainer/VBoxContainer"]
-layout_mode = 2
-text = "Keybinds"
-
 [node name="Fullscreen" type="CheckButton" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
 text = "Fullscreen"
