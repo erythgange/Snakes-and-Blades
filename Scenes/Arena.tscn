@@ -48,7 +48,7 @@ custom_data_layer_0/name = ""
 custom_data_layer_0/type = 0
 sources/0 = SubResource("TileSetAtlasSource_1ac2s")
 
-[sub_resource type="Resource" id="Resource_lgwjh"]
+[sub_resource type="Resource" id="Resource_8lcqs"]
 resource_local_to_scene = true
 script = ExtResource("14_18o61")
 player_index = 1
@@ -70,6 +70,15 @@ script = ExtResource("1_3ux2s")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_qaalf")
 
+[node name="Winner" type="Label" parent="."]
+visible = false
+offset_left = 391.0
+offset_top = 90.0
+offset_right = 571.0
+offset_bottom = 141.0
+text = "P1 Wins!"
+label_settings = ExtResource("2_tud74")
+
 [node name="RoundCountdown" type="Label" parent="."]
 offset_left = 454.0
 offset_top = 34.0
@@ -80,7 +89,7 @@ label_settings = ExtResource("2_tud74")
 script = ExtResource("3_fnjrt")
 
 [node name="Timer" type="Timer" parent="RoundCountdown"]
-one_shot = true
+autostart = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
 z_index = 5
@@ -123,7 +132,8 @@ max_food = 3
 
 [node name="SnakeSpawnerP1" parent="." instance=ExtResource("13_1bir4")]
 position = Vector2(158, 58)
-controls = SubResource("Resource_lgwjh")
+controls = SubResource("Resource_8lcqs")
+control_delay = 0.0
 spawn_bonus_speed = 200
 
 [node name="HoldCharge" parent="SnakeSpawnerP1" index="1"]
@@ -133,6 +143,7 @@ text = "Hold \"W\" to Charge"
 [node name="SnakeSpawnerP2" parent="." instance=ExtResource("13_1bir4")]
 position = Vector2(158, 483)
 controls = ExtResource("10_86v64")
+control_delay = 0.0
 spawn_bonus_speed = 200
 
 [node name="HoldCharge" parent="SnakeSpawnerP2" index="1"]

@@ -428,7 +428,7 @@ custom_data_layer_0/name = ""
 custom_data_layer_0/type = 0
 sources/0 = SubResource("TileSetAtlasSource_1ac2s")
 
-[sub_resource type="Resource" id="Resource_akl1g"]
+[sub_resource type="Resource" id="Resource_d58sj"]
 resource_local_to_scene = true
 script = ExtResource("14_k8dfb")
 player_index = 1
@@ -547,7 +547,7 @@ max_food = 3
 
 [node name="SnakeSpawnerP1" parent="." instance=ExtResource("9_e0wcg")]
 position = Vector2(-1107, 271)
-controls = SubResource("Resource_akl1g")
+controls = SubResource("Resource_d58sj")
 
 [node name="Shine" parent="SnakeSpawnerP1" index="0"]
 position = Vector2(478, 147)

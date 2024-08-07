@@ -4,6 +4,7 @@ extends Node2D
 @export var controls: Resource = null
 
 # base values
+@export var control_delay: float = 1.4
 @export var spawn_bonus_speed: int = 550
 @export var spawn_health: int = 20
 var spawn_max_speed: float = spawn_health * 2
@@ -52,7 +53,7 @@ func spawn(index) -> void:
 	snake.dash_particles.emitting = true
 	snake.turn_amplifier = 0
 	snake.can_attack = false
-	await get_tree().create_timer(1.4).timeout
+	await get_tree().create_timer(control_delay).timeout
 	snake.turn_amplifier = 1
 	snake.can_attack = true
 	snake.set_collision_mask_value(1, true)
