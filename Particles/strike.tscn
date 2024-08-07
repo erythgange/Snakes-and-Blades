@@ -1,0 +1,186 @@
+[gd_scene load_steps=10 format=3 uid="uid://bwgywkb7st5xa"]
+
+[ext_resource type="Texture2D" uid="uid://bsh8ea6y4ynng" path="res://Assets/slash/Strike.png" id="1_k1dcy"]
+[ext_resource type="Texture2D" uid="uid://b53yma3avkej2" path="res://Assets/line-Sheet.png" id="2_c4kup"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_og543"]
+particles_animation = true
+particles_anim_h_frames = 3
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_wm2dp"]
+max_value = 100.0
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 100), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_3u70g"]
+offsets = PackedFloat32Array(0, 0.534314, 1)
+colors = PackedColorArray(16.757, 0.433, 0, 1, 0.79, 0.58381, 0.5767, 0.466667, 0, 0, 0, 0)
+
+[sub_resource type="Curve" id="Curve_l1oix"]
+max_value = 200.0
+_data = [Vector2(0.0258621, 19.7802), 0.0, 344.52, 0, 0, Vector2(1, 200), -21.8524, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Animation" id="Animation_55il2"]
+resource_name = "strike"
+length = 10.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 5, 10),
+"transitions": PackedFloat32Array(2, -6.9644, -6.9644, 2),
+"update": 0,
+"values": [Color(0.580392, 0.278431, 0, 0), Color(5, 0.5, 0, 1), Color(0.578908, 0.279679, 5.77569e-07, 0.463), Color(0.580392, 0.278431, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Sparks:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("..:offset")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(7.21, 7.21),
+"update": 0,
+"values": [Vector2(0, -105), Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(20.3929, 19.6983),
+"update": 0,
+"values": [Vector2(0, -100), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_biqh5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Sparks:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("..:offset")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -105)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../../Camera2D:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.20944]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_s0a3y"]
+_data = {
+"RESET": SubResource("Animation_biqh5"),
+"strike": SubResource("Animation_55il2")
+}
+
+[node name="Strike" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(4, 4)
+texture = ExtResource("1_k1dcy")
+
+[node name="Sparks" type="CPUParticles2D" parent="."]
+z_index = 1
+material = SubResource("CanvasItemMaterial_og543")
+rotation = 1.5708
+scale = Vector2(4.4375, 4.4375)
+emitting = false
+amount = 50
+lifetime = 10.0
+one_shot = true
+explosiveness = 1.0
+randomness = 0.33
+lifetime_randomness = 1.0
+local_coords = true
+texture = ExtResource("2_c4kup")
+emission_shape = 3
+emission_rect_extents = Vector2(30, 0)
+particle_flag_align_y = true
+spread = 20.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 10.0
+initial_velocity_max = 100.0
+damping_min = 100.0
+damping_max = 100.0
+damping_curve = SubResource("Curve_wm2dp")
+color_ramp = SubResource("Gradient_3u70g")
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+anim_speed_curve = SubResource("Curve_l1oix")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Sprite2D")
+libraries = {
+"": SubResource("AnimationLibrary_s0a3y")
+}

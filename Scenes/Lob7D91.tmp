@@ -1,0 +1,590 @@
+[gd_scene load_steps=30 format=3 uid="uid://h05bpqqsdr21"]
+
+[ext_resource type="Texture2D" uid="uid://cqnhqnsinv0ah" path="res://Assets/random placeholder tileset.png" id="1_lc5ti"]
+[ext_resource type="Script" path="res://Scenes/LobbyScript.gd" id="1_s546i"]
+[ext_resource type="Resource" uid="uid://gyro24fg8rti" path="res://Entities/Player/Controls/P1_Controls.tres" id="2_4txme"]
+[ext_resource type="Shader" path="res://Shaders/SmoothPixel.gdshader" id="2_abgfx"]
+[ext_resource type="Script" path="res://Scenes/Countdown.gd" id="2_kxnc8"]
+[ext_resource type="Script" path="res://Scenes/LogoScript.gd" id="2_ntj0y"]
+[ext_resource type="Shader" uid="uid://ctopg7qwltrnt" path="res://Shaders/hit_flash.tres" id="2_vr5ys"]
+[ext_resource type="Texture2D" uid="uid://ljlv477fl4nu" path="res://Snakes and Blades/SnakesLight.png" id="3_hvv5h"]
+[ext_resource type="Texture2D" uid="uid://cs0qbk1qhm84o" path="res://Snakes and Blades/Blades Pixel Logo1.png" id="5_p3u87"]
+[ext_resource type="PackedScene" uid="uid://cldtufdwg5hbn" path="res://Entities/Objects/FoodSpawner.tscn" id="6_8b75m"]
+[ext_resource type="PackedScene" uid="uid://mojhv5f5pqoy" path="res://Scenes/pause_menu.tscn" id="6_iiamt"]
+[ext_resource type="Texture2D" uid="uid://divyxxnbwdb4o" path="res://Snakes and Blades/Blades Pixel Logo2.png" id="6_pwetu"]
+[ext_resource type="Script" path="res://Scripts/Camera2D.gd" id="6_rkqqe"]
+[ext_resource type="Texture2D" uid="uid://biprg21ece37r" path="res://Snakes and Blades/Blades Pixel Logo3.png" id="7_kflr1"]
+[ext_resource type="PackedScene" uid="uid://d37yoc4n1k4sd" path="res://Scenes/snake_spawner.tscn" id="9_e0wcg"]
+[ext_resource type="Script" path="res://Entities/Player/Controls/PlayerControls.gd" id="14_k8dfb"]
+
+[sub_resource type="Environment" id="Environment_qaalf"]
+background_mode = 3
+tonemap_mode = 2
+glow_enabled = true
+glow_intensity = 0.1
+glow_strength = 0.8
+glow_bloom = 0.1
+glow_blend_mode = 1
+
+[sub_resource type="LabelSettings" id="LabelSettings_4a63p"]
+font_size = 64
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(3, 3)
+
+[sub_resource type="Animation" id="Animation_01px8"]
+resource_name = "Hold"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(-3.03144, -3.03144),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 10)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../BladesLogo:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(-3.03144, -3.03144),
+"update": 0,
+"values": [Vector2(-11.968, 206), Vector2(-11.968, 196.5)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../BladesLogo:self_modulate")
+tracks/2/interp = 0
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(-3.03144, -3.03144),
+"update": 0,
+"values": [Color(1.5, 0, 0, 1), Color(0, 1, 0.983333, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../../ColorRect:color")
+tracks/3/interp = 0
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(-3.03144, -3.03144),
+"update": 0,
+"values": [Color(0.856067, 0.856067, 0.856067, 1), Color(0, 0, 0, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:self_modulate")
+tracks/4/interp = 0
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(-3.03144, -3.03144),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(1, 1, 1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("../../Camera2D:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(-3.03144, -3.03144),
+"update": 0,
+"values": [0.20944, 0.0]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("../../Camera2D:rotation_smoothing_enabled")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(-3.03144),
+"update": 1,
+"values": [true]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("../../Camera2D:position_smoothing_enabled")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_bdrem"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../../ColorRect:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.856067, 0.856067, 0.856067, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../BladesLogo:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../BladesLogo:self_modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1.5, 0, 0, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("../../Camera2D:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-600, 270)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("../../Camera2D:rotation_smoothing_enabled")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("../../Camera2D:rotation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.20944]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("../../Camera2D:position_smoothing_enabled")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("../BladesLogo:position")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-11.968, 206)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("../BladesLogo:rotation")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_b20bk"]
+resource_name = "Transition"
+step = 0.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../../ColorRect:color")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.02),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:self_modulate")
+tracks/1/interp = 0
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.02),
+"transitions": PackedFloat32Array(-8.87652),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../BladesLogo:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(-0.02, 0.02, 0.12),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0, 1, 2]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../BladesLogo:self_modulate")
+tracks/3/interp = 0
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.02),
+"transitions": PackedFloat32Array(-8.87652),
+"update": 0,
+"values": [Color(0, 1, 0.95, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../../Camera2D:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.27, 0.3, 0.4),
+"transitions": PackedFloat32Array(17.7531, -40.786, -5.46416),
+"update": 0,
+"values": [Vector2(-600, 270), Vector2(-750, 270), Vector2(480, 270)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.02),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("../../Camera2D:rotation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0.0174103),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("../BladesLogo:position")
+tracks/7/interp = 0
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.28, 0.34),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-11.968, 206), Vector2(-100, 206), Vector2(300, 171.746)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("../BladesLogo:rotation")
+tracks/8/interp = 0
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 0.28, 0.34),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [-0.0349066, 0.0, 0.0872665]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1okx6"]
+_data = {
+"Hold": SubResource("Animation_01px8"),
+"RESET": SubResource("Animation_bdrem"),
+"Transition": SubResource("Animation_b20bk")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dnmou"]
+resource_local_to_scene = true
+shader = ExtResource("2_abgfx")
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_orejw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_p3u87")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_pwetu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_kflr1")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1ac2s"]
+texture = ExtResource("1_lc5ti")
+texture_region_size = Vector2i(8, 8)
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4, -4, 4, -4, 4, 4, -4, 4)
+1:0/0 = 0
+1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:0/0/physics_layer_0/angular_velocity = 0.0
+0:1/0 = 0
+0:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:1/0/physics_layer_0/angular_velocity = 0.0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4, -4, 4, -4, 4, 4, -4, 4)
+1:1/0 = 0
+1:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:1/0/physics_layer_0/angular_velocity = 0.0
+
+[sub_resource type="TileSet" id="TileSet_24x0f"]
+tile_size = Vector2i(8, 8)
+physics_layer_0/collision_layer = 1
+physics_layer_0/collision_mask = 65535
+terrain_set_0/mode = 0
+custom_data_layer_0/name = ""
+custom_data_layer_0/type = 0
+sources/0 = SubResource("TileSetAtlasSource_1ac2s")
+
+[sub_resource type="Resource" id="Resource_nvfrc"]
+resource_local_to_scene = true
+script = ExtResource("14_k8dfb")
+player_index = 1
+left = "p1_left"
+right = "p1_right"
+dash = "p1_dash"
+snake_layer = 9
+blade_layer = 10
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xt412"]
+resource_local_to_scene = true
+shader = ExtResource("2_vr5ys")
+shader_parameter/enabled = false
+shader_parameter/tint = Color(5, 5, 5, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g1emq"]
+resource_local_to_scene = true
+shader = ExtResource("2_vr5ys")
+shader_parameter/enabled = false
+shader_parameter/tint = Color(5, 5, 5, 1)
+
+[node name="Lobby" type="Node2D"]
+script = ExtResource("1_s546i")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_qaalf")
+
+[node name="Countdown" type="Label" parent="."]
+offset_left = 448.0
+offset_top = 242.0
+offset_right = 504.0
+offset_bottom = 293.0
+text = "30	"
+label_settings = SubResource("LabelSettings_4a63p")
+script = ExtResource("2_kxnc8")
+
+[node name="Timer" type="Timer" parent="Countdown"]
+autostart = true
+
+[node name="Logo" type="Node2D" parent="."]
+modulate = Color(1.3, 1.3, 1.3, 1)
+position = Vector2(-574, 198.75)
+rotation = 0.20944
+scale = Vector2(0.5, 0.5)
+script = ExtResource("2_ntj0y")
+controls = ExtResource("2_4txme")
+
+[node name="LogoAnimation" type="AnimationPlayer" parent="Logo"]
+root_node = NodePath("../SnakesLogo")
+libraries = {
+"": SubResource("AnimationLibrary_1okx6")
+}
+
+[node name="SnakesLogo" type="Sprite2D" parent="Logo"]
+self_modulate = Color(0, 0, 0, 1)
+texture_filter = 2
+use_parent_material = true
+texture = ExtResource("3_hvv5h")
+
+[node name="BladesLogo" type="AnimatedSprite2D" parent="Logo"]
+self_modulate = Color(1.5, 0, 0, 1)
+texture_filter = 3
+material = SubResource("ShaderMaterial_dnmou")
+use_parent_material = true
+position = Vector2(-11.968, 206)
+scale = Vector2(5, 5)
+sprite_frames = SubResource("SpriteFrames_orejw")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+z_index = 5
+position = Vector2(-600, 270)
+rotation = 0.20944
+ignore_rotation = false
+rotation_smoothing_speed = 1.0
+editor_draw_limits = true
+script = ExtResource("6_rkqqe")
+
+[node name="Debug" type="Label" parent="Camera2D"]
+visible = false
+offset_left = -375.0
+offset_top = -237.0
+offset_right = -335.0
+offset_bottom = -214.0
+
+[node name="PauseMenu" parent="Camera2D" instance=ExtResource("6_iiamt")]
+visible = false
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = -66.0
+offset_top = -51.0
+offset_right = -66.0
+offset_bottom = -51.0
+grow_horizontal = 1
+grow_vertical = 1
+pivot_offset = Vector2(50, 50)
+
+[node name="TileMap" type="TileMap" parent="." groups=["walls"]]
+scale = Vector2(4, 4)
+tile_set = SubResource("TileSet_24x0f")
+rendering_quadrant_size = 8
+format = 2
+layer_0/tile_data = PackedInt32Array(2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 6, 0, 0, 7, 0, 0, 8, 0, 0, 9, 0, 0, 10, 0, 0, 11, 0, 0, 12, 0, 0, 13, 0, 0, 25, 0, 0, 24, 0, 0, 23, 0, 0, 22, 0, 0, 21, 0, 0, 20, 0, 0, 19, 0, 0, 18, 0, 0, 17, 0, 0, 16, 0, 0, 15, 0, 0, 14, 0, 0, 26, 0, 0, 27, 0, 0, 28, 0, 0, 29, 0, 0, 65536, 0, 0, 131072, 0, 0, 196608, 0, 0, 262144, 0, 0, 327680, 0, 0, 393216, 0, 0, 458752, 0, 0, 589824, 0, 0, 655360, 0, 0, 720896, 0, 0, 786432, 0, 0, 851968, 0, 0, 917504, 0, 0, 983040, 0, 0, 1048576, 0, 0, 1048577, 0, 0, 1048578, 0, 0, 1048579, 0, 0, 1048580, 0, 0, 1048581, 0, 0, 1048582, 0, 0, 1048583, 0, 0, 1048584, 0, 0, 1048585, 0, 0, 1048586, 0, 0, 1048587, 0, 0, 1048588, 0, 0, 1048589, 0, 0, 1048590, 0, 0, 1048591, 0, 0, 1048592, 0, 0, 1048593, 0, 0, 1048594, 0, 0, 1048595, 0, 0, 1048596, 0, 0, 1048597, 0, 0, 1048598, 0, 0, 1048599, 0, 0, 1048600, 0, 0, 1048601, 0, 0, 1048602, 0, 0, 1048603, 0, 0, 1048604, 0, 0, 1048605, 0, 0, 983069, 0, 0, 917533, 0, 0, 851997, 0, 0, 262173, 0, 0, 196637, 0, 0, 131101, 0, 0, 65565, 0, 0, 1, 0, 0, 0, 0, 0, 327709, 0, 0, 393245, 0, 0, 458781, 0, 0, 524317, 0, 0, 589853, 0, 0, 786461, 0, 0, 720925, 0, 0, 655389, 0, 0, 589825, 0, 0, 458753, 0, 0, 589826, 0, 0, 458754, 0, 0, 655361, 0, 0, 393217, 0, 0)
+
+[node name="FoodSpawner" parent="." instance=ExtResource("6_8b75m")]
+position = Vector2(484, 270)
+max_food = 3
+
+[node name="SnakeSpawnerP1" parent="." instance=ExtResource("9_e0wcg")]
+position = Vector2(-1107, 271)
+controls = SubResource("Resource_nvfrc")
+
+[node name="Shine" parent="SnakeSpawnerP1" index="0"]
+position = Vector2(478, 147)
+rotation = 0.288032
+
+[node name="HoldCharge" parent="SnakeSpawnerP1" index="1"]
+z_index = 2
+material = SubResource("ShaderMaterial_xt412")
+offset_left = 366.0
+offset_top = 107.0
+offset_right = 590.0
+offset_bottom = 133.0
+rotation = 0.204423
+text = "Hold \"W\" to Charge"
+
+[node name="SnakeSpawnerP2" parent="." instance=ExtResource("9_e0wcg")]
+position = Vector2(-1104, 272)
+
+[node name="Shine" parent="SnakeSpawnerP2" index="0"]
+position = Vector2(1260, 218)
+
+[node name="HoldCharge" parent="SnakeSpawnerP2" index="1"]
+z_index = 2
+material = SubResource("ShaderMaterial_g1emq")
+offset_left = 1151.0
+offset_top = 203.0
+offset_right = 1369.0
+offset_bottom = 229.0
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = -6
+offset_left = -1250.0
+offset_top = -109.0
+offset_bottom = 659.0
+color = Color(0.856067, 0.856067, 0.856067, 1)
+
+[connection signal="timeout" from="Countdown/Timer" to="Countdown" method="_on_timer_timeout"]
+[connection signal="animation_finished" from="Logo/LogoAnimation" to="." method="_on_logo_animation_animation_finished"]
+[connection signal="animation_finished" from="Logo/LogoAnimation" to="Logo" method="_on_logo_animation_animation_finished"]
+
+[editable path="FoodSpawner"]
+[editable path="SnakeSpawnerP1"]
+[editable path="SnakeSpawnerP2"]

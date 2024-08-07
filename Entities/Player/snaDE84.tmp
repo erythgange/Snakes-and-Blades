@@ -1,0 +1,112 @@
+[gd_scene load_steps=13 format=3 uid="uid://b4fsevfm2ixip"]
+
+[ext_resource type="Script" path="res://Entities/Player/snake_body.gd" id="1_e3npb"]
+[ext_resource type="Texture2D" uid="uid://br4jhp578tqkl" path="res://Assets/Snake/SnakeBody1_glow.png" id="2_isfti"]
+[ext_resource type="Shader" uid="uid://ctopg7qwltrnt" path="res://Shaders/hit_flash.tres" id="2_s66ar"]
+[ext_resource type="Texture2D" uid="uid://dx8gda5aqe8i6" path="res://Assets/Snake/SnakeBody1.png" id="3_802q7"]
+[ext_resource type="PackedScene" uid="uid://bjrradvp813fy" path="res://Entities/Overlap/Hurtbox.tscn" id="4_rcnd0"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ecscy"]
+radius = 2.5
+height = 7.99999
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qy50r"]
+resource_local_to_scene = true
+shader = ExtResource("2_s66ar")
+shader_parameter/enabled = false
+shader_parameter/tint = Color(5, 5, 5, 1)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2vfkd"]
+radius = 1.5
+height = 4.5
+
+[sub_resource type="Animation" id="Animation_lu18m"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SnakeBody/SnakeBodySprite:material:shader_parameter/enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_np0i7"]
+resource_name = "hit_flash"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SnakeBody/SnakeBodySprite:material:shader_parameter/enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wl7cv"]
+_data = {
+"RESET": SubResource("Animation_lu18m"),
+"hit_flash": SubResource("Animation_np0i7")
+}
+
+[sub_resource type="Environment" id="Environment_ep5mp"]
+background_mode = 3
+tonemap_mode = 2
+glow_enabled = true
+glow_intensity = 0.1
+glow_strength = 0.8
+glow_bloom = 0.1
+glow_blend_mode = 1
+
+[node name="SnakeBody" type="RigidBody2D"]
+z_index = 1
+collision_layer = 4
+collision_mask = 65308
+mass = 10.0
+script = ExtResource("1_e3npb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+scale = Vector2(4, 4)
+shape = SubResource("CapsuleShape2D_ecscy")
+one_way_collision = true
+
+[node name="SnakeBodyGlow" type="Sprite2D" parent="."]
+self_modulate = Color(10, 10, 0.212, 1)
+rotation = 1.5708
+scale = Vector2(2, 2)
+texture = ExtResource("2_isfti")
+
+[node name="SnakeBodySprite" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_qy50r")
+rotation = 1.5708
+scale = Vector2(2, 2)
+texture = ExtResource("3_802q7")
+
+[node name="Hurtbox" parent="." instance=ExtResource("4_rcnd0")]
+scale = Vector2(4, 4)
+collision_mask = 65280
+
+[node name="HurtboxShape" parent="Hurtbox" index="0"]
+rotation = 1.5708
+scale = Vector2(2, 2)
+shape = SubResource("CapsuleShape2D_2vfkd")
+
+[node name="HitFlash" type="AnimationPlayer" parent="."]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_wl7cv")
+}
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ep5mp")
+
+[editable path="Hurtbox"]

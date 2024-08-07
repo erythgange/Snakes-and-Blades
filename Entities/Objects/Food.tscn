@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=3 uid="uid://mj35qkxdglcs"]
+
+[ext_resource type="Script" path="res://Entities/Objects/Food.gd" id="1_hhe7y"]
+[ext_resource type="Texture2D" uid="uid://bqnv7ka6e4s73" path="res://Assets/apple.png" id="2_cxap1"]
+[ext_resource type="PackedScene" uid="uid://dteoryyncno8w" path="res://Entities/Overlap/Hitbox.tscn" id="2_f518b"]
+[ext_resource type="Script" path="res://Entities/Overlap/FoodHitbox.gd" id="3_06ls5"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dybx0"]
+radius = 5.5
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_40efp"]
+radius = 6.5
+
+[node name="Food" type="RigidBody2D"]
+collision_layer = 8
+collision_mask = 63
+gravity_scale = 0.0
+linear_damp = 1.0
+angular_damp = 1.0
+script = ExtResource("1_hhe7y")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(2, 2)
+shape = SubResource("CircleShape2D_dybx0")
+
+[node name="Apple" type="Sprite2D" parent="."]
+position = Vector2(-0.95, -2.6)
+scale = Vector2(2, 2)
+texture = ExtResource("2_cxap1")
+
+[node name="Hitbox" parent="." instance=ExtResource("2_f518b")]
+scale = Vector2(2, 2)
+collision_mask = 21760
+script = ExtResource("3_06ls5")
+
+[node name="HitboxShape" parent="Hitbox" index="0"]
+shape = SubResource("CircleShape2D_40efp")
+
+[connection signal="area_entered" from="Hitbox" to="Hitbox" method="_on_area_entered"]
+
+[editable path="Hitbox"]

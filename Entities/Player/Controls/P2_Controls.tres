@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="PlayerControls" load_steps=2 format=3 uid="uid://b883yvfauceiv"]
+
+[ext_resource type="Script" path="res://Entities/Player/Controls/PlayerControls.gd" id="1_10lxo"]
+
+[resource]
+script = ExtResource("1_10lxo")
+player_index = 2
+left = "p2_left"
+right = "p2_right"
+dash = "p2_dash"
+parry = "p2_parry"
+snake_layer = 11
+blade_mask = 12
+snake_mask = 11
+blade_layer = 12

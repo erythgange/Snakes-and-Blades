@@ -1,0 +1,157 @@
+[gd_scene load_steps=18 format=3 uid="uid://dgrqv5febvf73"]
+
+[ext_resource type="Script" path="res://Scripts/ArenaScript.gd" id="1_3ux2s"]
+[ext_resource type="LabelSettings" uid="uid://b4dccrw7of7ol" path="res://Snakes and Blades/Fonts/CountdownLabelSettings.tres" id="2_tud74"]
+[ext_resource type="Script" path="res://Scenes/RoundCountdown.gd" id="3_fnjrt"]
+[ext_resource type="Script" path="res://Scripts/Camera2D.gd" id="9_8qfge"]
+[ext_resource type="Resource" uid="uid://b883yvfauceiv" path="res://Entities/Player/Controls/P2_Controls.tres" id="10_86v64"]
+[ext_resource type="PackedScene" uid="uid://mojhv5f5pqoy" path="res://Scenes/pause_menu.tscn" id="10_ody26"]
+[ext_resource type="Texture2D" uid="uid://cqnhqnsinv0ah" path="res://Assets/random placeholder tileset.png" id="11_vg6cv"]
+[ext_resource type="PackedScene" uid="uid://cldtufdwg5hbn" path="res://Entities/Objects/FoodSpawner.tscn" id="12_kkyjx"]
+[ext_resource type="PackedScene" uid="uid://d37yoc4n1k4sd" path="res://Scenes/snake_spawner.tscn" id="13_1bir4"]
+[ext_resource type="Script" path="res://Entities/Player/Controls/PlayerControls.gd" id="14_18o61"]
+[ext_resource type="Shader" uid="uid://ctopg7qwltrnt" path="res://Shaders/hit_flash.tres" id="15_uimdp"]
+
+[sub_resource type="Environment" id="Environment_qaalf"]
+background_mode = 3
+tonemap_mode = 2
+glow_enabled = true
+glow_intensity = 0.1
+glow_strength = 0.8
+glow_bloom = 0.1
+glow_blend_mode = 1
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1ac2s"]
+texture = ExtResource("11_vg6cv")
+texture_region_size = Vector2i(8, 8)
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4, -4, 4, -4, 4, 4, -4, 4)
+1:0/0 = 0
+1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:0/0/physics_layer_0/angular_velocity = 0.0
+0:1/0 = 0
+0:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:1/0/physics_layer_0/angular_velocity = 0.0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4, -4, 4, -4, 4, 4, -4, 4)
+1:1/0 = 0
+1:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:1/0/physics_layer_0/angular_velocity = 0.0
+
+[sub_resource type="TileSet" id="TileSet_24x0f"]
+tile_size = Vector2i(8, 8)
+physics_layer_0/collision_layer = 1
+physics_layer_0/collision_mask = 65535
+terrain_set_0/mode = 0
+custom_data_layer_0/name = ""
+custom_data_layer_0/type = 0
+sources/0 = SubResource("TileSetAtlasSource_1ac2s")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_63tdo"]
+resource_local_to_scene = true
+shader = ExtResource("15_uimdp")
+shader_parameter/enabled = false
+shader_parameter/tint = Color(5, 5, 5, 1)
+
+[sub_resource type="Resource" id="Resource_mx8tk"]
+resource_local_to_scene = true
+script = ExtResource("14_18o61")
+player_index = 1
+left = "p1_left"
+right = "p1_right"
+dash = "p1_dash"
+snake_layer = 9
+blade_layer = 10
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5fcke"]
+resource_local_to_scene = true
+shader = ExtResource("15_uimdp")
+shader_parameter/enabled = false
+shader_parameter/tint = Color(5, 5, 5, 1)
+
+[node name="Arena" type="Node2D"]
+script = ExtResource("1_3ux2s")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_qaalf")
+
+[node name="RoundCountdown" type="Label" parent="."]
+offset_left = 454.0
+offset_top = 34.0
+offset_right = 510.0
+offset_bottom = 85.0
+text = "30"
+label_settings = ExtResource("2_tud74")
+script = ExtResource("3_fnjrt")
+
+[node name="Timer" type="Timer" parent="RoundCountdown"]
+autostart = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+z_index = 5
+position = Vector2(480, 270)
+ignore_rotation = false
+rotation_smoothing_speed = 1.0
+editor_draw_limits = true
+script = ExtResource("9_8qfge")
+
+[node name="Debug" type="Label" parent="Camera2D"]
+visible = false
+offset_left = -375.0
+offset_top = -237.0
+offset_right = -335.0
+offset_bottom = -214.0
+
+[node name="PauseMenu" parent="Camera2D" instance=ExtResource("10_ody26")]
+visible = false
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = -66.0
+offset_top = -51.0
+offset_right = -66.0
+offset_bottom = -51.0
+grow_horizontal = 1
+grow_vertical = 1
+pivot_offset = Vector2(50, 50)
+
+[node name="TileMap" type="TileMap" parent="." groups=["walls"]]
+scale = Vector2(4, 4)
+tile_set = SubResource("TileSet_24x0f")
+rendering_quadrant_size = 8
+format = 2
+layer_0/tile_data = PackedInt32Array(2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 6, 0, 0, 7, 0, 0, 8, 0, 0, 9, 0, 0, 10, 0, 0, 11, 0, 0, 12, 0, 0, 13, 0, 0, 25, 0, 0, 24, 0, 0, 23, 0, 0, 22, 0, 0, 21, 0, 0, 20, 0, 0, 19, 0, 0, 18, 0, 0, 17, 0, 0, 16, 0, 0, 15, 0, 0, 14, 0, 0, 26, 0, 0, 27, 0, 0, 28, 0, 0, 29, 0, 0, 65536, 0, 0, 131072, 0, 0, 196608, 0, 0, 262144, 0, 0, 327680, 0, 0, 393216, 0, 0, 458752, 0, 0, 589824, 0, 0, 655360, 0, 0, 720896, 0, 0, 786432, 0, 0, 851968, 0, 0, 917504, 0, 0, 983040, 0, 0, 1048576, 0, 0, 1048577, 0, 0, 1048578, 0, 0, 1048579, 0, 0, 1048580, 0, 0, 1048581, 0, 0, 1048582, 0, 0, 1048583, 0, 0, 1048584, 0, 0, 1048585, 0, 0, 1048586, 0, 0, 1048587, 0, 0, 1048588, 0, 0, 1048589, 0, 0, 1048590, 0, 0, 1048591, 0, 0, 1048592, 0, 0, 1048593, 0, 0, 1048594, 0, 0, 1048595, 0, 0, 1048596, 0, 0, 1048597, 0, 0, 1048598, 0, 0, 1048599, 0, 0, 1048600, 0, 0, 1048601, 0, 0, 1048602, 0, 0, 1048603, 0, 0, 1048604, 0, 0, 1048605, 0, 0, 983069, 0, 0, 917533, 0, 0, 851997, 0, 0, 262173, 0, 0, 196637, 0, 0, 131101, 0, 0, 65565, 0, 0, 1, 0, 0, 0, 0, 0, 327709, 0, 0, 393245, 0, 0, 458781, 0, 0, 524317, 0, 0, 589853, 0, 0, 786461, 0, 0, 720925, 0, 0, 655389, 0, 0, 524288, 0, 0)
+
+[node name="FoodSpawner" parent="." instance=ExtResource("12_kkyjx")]
+position = Vector2(482, 270)
+max_food = 3
+
+[node name="SnakeSpawnerP2" parent="." instance=ExtResource("13_1bir4")]
+position = Vector2(-1104, 272)
+controls = ExtResource("10_86v64")
+
+[node name="Shine" parent="SnakeSpawnerP2" index="0"]
+position = Vector2(1260, 218)
+
+[node name="HoldCharge" parent="SnakeSpawnerP2" index="1"]
+z_index = 2
+material = SubResource("ShaderMaterial_63tdo")
+offset_left = 1151.0
+offset_top = 203.0
+offset_right = 1369.0
+offset_bottom = 229.0
+
+[node name="SnakeSpawnerP1" parent="." instance=ExtResource("13_1bir4")]
+position = Vector2(795, 67)
+controls = SubResource("Resource_mx8tk")
+
+[node name="HoldCharge" parent="SnakeSpawnerP1" index="1"]
+material = SubResource("ShaderMaterial_5fcke")
+
+[connection signal="timeout" from="RoundCountdown/Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="RoundCountdown/Timer" to="RoundCountdown" method="_on_timer_timeout"]
+
+[editable path="FoodSpawner"]
+[editable path="SnakeSpawnerP2"]
+[editable path="SnakeSpawnerP1"]

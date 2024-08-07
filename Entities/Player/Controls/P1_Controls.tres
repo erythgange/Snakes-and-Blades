@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="PlayerControls" load_steps=2 format=3 uid="uid://gyro24fg8rti"]
+
+[ext_resource type="Script" path="res://Entities/Player/Controls/PlayerControls.gd" id="1_s1sh6"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("1_s1sh6")
+player_index = 1
+left = "p1_left"
+right = "p1_right"
+dash = "p1_dash"
+parry = "p1_parry"
+snake_layer = 9
+blade_layer = 10
+snake_mask = 9
+blade_mask = 10

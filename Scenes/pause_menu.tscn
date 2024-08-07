@@ -1,0 +1,59 @@
+[gd_scene load_steps=4 format=3 uid="uid://mojhv5f5pqoy"]
+
+[ext_resource type="Script" path="res://Scripts/pause_menu.gd" id="1_cesik"]
+[ext_resource type="Shader" path="res://Shaders/blur.gdshader" id="1_dhswp"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bq0jb"]
+shader = ExtResource("1_dhswp")
+shader_parameter/amount = 1.0
+
+[node name="PauseMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_cesik")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_bq0jb")
+layout_mode = 2
+offset_left = -43.0
+offset_top = 5.0
+offset_right = 157.0
+offset_bottom = 155.0
+scale = Vector2(10, 10)
+pivot_offset = Vector2(100, 75)
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_right = 112.0
+offset_bottom = 108.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Resume" type="Button" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Resume"
+
+[node name="Keybinds" type="Button" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Keybinds"
+
+[node name="Fullscreen" type="CheckButton" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Fullscreen"
+
+[node name="Quit to Desktop" type="Button" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Quit to Desktop"
+
+[connection signal="pressed" from="PanelContainer/VBoxContainer/Resume" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/Fullscreen" to="." method="_on_fullscreen_pressed"]
+[connection signal="toggled" from="PanelContainer/VBoxContainer/Fullscreen" to="." method="_on_fullscreen_toggled"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/Quit to Desktop" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/Quit to Desktop" to="." method="_on_quit_to_desktop_pressed"]

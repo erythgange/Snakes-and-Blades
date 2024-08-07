@@ -1,0 +1,67 @@
+[gd_scene load_steps=9 format=3 uid="uid://vuaki6tfc2pl"]
+
+[ext_resource type="Script" path="res://Particles/Scripts/bounce_parry.gd" id="1_c562u"]
+[ext_resource type="Texture2D" uid="uid://bt2beaa8eu1jf" path="res://Assets/parry-spark.png" id="1_roas0"]
+[ext_resource type="Texture2D" uid="uid://uhky22rr4wby" path="res://Assets/parry-circle.png" id="3_ocgfk"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_sxwu0"]
+particles_animation = true
+particles_anim_h_frames = 8
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_1iik5"]
+min_value = -360.0
+max_value = 360.0
+_data = [Vector2(0, -360), 0.0, 0.0, 0, 0, Vector2(1, 360), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_1e537"]
+colors = PackedColorArray(10, 10, 0, 1, 5, 5, 0, 0)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_5o0ip"]
+particles_animation = true
+particles_anim_h_frames = 4
+particles_anim_v_frames = 1
+particles_anim_loop = true
+
+[sub_resource type="Gradient" id="Gradient_4v6lt"]
+colors = PackedColorArray(10, 10, 0, 1, 5, 5, 0, 0)
+
+[node name="BounceParry" type="Node2D"]
+script = ExtResource("1_c562u")
+
+[node name="ParryLines" type="CPUParticles2D" parent="."]
+z_index = 2
+material = SubResource("CanvasItemMaterial_sxwu0")
+emitting = false
+amount = 1
+one_shot = true
+speed_scale = 2.0
+texture = ExtResource("1_roas0")
+gravity = Vector2(0, 0)
+angular_velocity_curve = SubResource("Curve_1iik5")
+radial_accel_max = 13.11
+scale_amount_min = 4.0
+scale_amount_max = 4.0
+color = Color(10, 10, 1, 1)
+color_ramp = SubResource("Gradient_1e537")
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+
+[node name="ParryCircle" type="CPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_5o0ip")
+emitting = false
+amount = 1
+lifetime = 0.5
+one_shot = true
+texture = ExtResource("3_ocgfk")
+gravity = Vector2(0, 0)
+angle_max = 90.0
+scale_amount_min = 4.0
+scale_amount_max = 4.0
+color_ramp = SubResource("Gradient_4v6lt")
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+
+[connection signal="finished" from="ParryLines" to="." method="_on_parry_lines_finished"]

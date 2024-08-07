@@ -1,0 +1,71 @@
+[gd_scene load_steps=10 format=3 uid="uid://h05bpqqsdr21"]
+
+[ext_resource type="Script" path="res://Scenes/SceneScript.gd" id="1_7mfc7"]
+[ext_resource type="Texture2D" uid="uid://cqnhqnsinv0ah" path="res://Assets/random placeholder tileset.png" id="1_lc5ti"]
+[ext_resource type="PackedScene" uid="uid://c6yg1bkqw8ldx" path="res://Entities/Player/snake_head.tscn" id="2_gesju"]
+[ext_resource type="Resource" uid="uid://gyro24fg8rti" path="res://Entities/Player/P1_Controls.tres" id="3_wfnaq"]
+[ext_resource type="Resource" uid="uid://b883yvfauceiv" path="res://Entities/Player/P2_Controls.tres" id="4_q3gsv"]
+[ext_resource type="PackedScene" uid="uid://cldtufdwg5hbn" path="res://Scenes/FoodSpawner.tscn" id="5_1fx7f"]
+[ext_resource type="Script" path="res://Scripts/Camera2D.gd" id="6_rkqqe"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1ac2s"]
+texture = ExtResource("1_lc5ti")
+texture_region_size = Vector2i(8, 8)
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4, -4, 4, -4, 4, 4, -4, 4)
+1:0/0 = 0
+1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:0/0/physics_layer_0/angular_velocity = 0.0
+0:1/0 = 0
+0:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:1/0/physics_layer_0/angular_velocity = 0.0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4, -4, 4, -4, 4, 4, -4, 4)
+1:1/0 = 0
+1:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:1/0/physics_layer_0/angular_velocity = 0.0
+
+[sub_resource type="TileSet" id="TileSet_24x0f"]
+tile_size = Vector2i(8, 8)
+physics_layer_0/collision_layer = 1
+physics_layer_0/collision_mask = 0
+terrain_set_0/mode = 0
+custom_data_layer_0/name = ""
+custom_data_layer_0/type = 0
+sources/0 = SubResource("TileSetAtlasSource_1ac2s")
+
+[node name="Lobby" type="Node2D"]
+script = ExtResource("1_7mfc7")
+
+[node name="TileMap" type="TileMap" parent="."]
+scale = Vector2(4, 4)
+tile_set = SubResource("TileSet_24x0f")
+rendering_quadrant_size = 8
+format = 2
+layer_0/tile_data = PackedInt32Array(0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 6, 0, 0, 7, 0, 0, 8, 0, 0, 9, 0, 0, 10, 0, 0, 11, 0, 0, 12, 0, 0, 13, 0, 0, 25, 0, 0, 24, 0, 0, 23, 0, 0, 22, 0, 0, 21, 0, 0, 20, 0, 0, 19, 0, 0, 18, 0, 0, 17, 0, 0, 16, 0, 0, 15, 0, 0, 14, 0, 0, 26, 0, 0, 27, 0, 0, 28, 0, 0, 29, 0, 0, 65536, 0, 0, 131072, 0, 0, 196608, 0, 0, 262144, 0, 0, 327680, 0, 0, 393216, 0, 0, 458752, 0, 0, 524288, 0, 0, 589824, 0, 0, 655360, 0, 0, 720896, 0, 0, 786432, 0, 0, 851968, 0, 0, 917504, 0, 0, 983040, 0, 0, 1048576, 0, 0, 1048577, 0, 0, 1048578, 0, 0, 1048579, 0, 0, 1048580, 0, 0, 1048581, 0, 0, 1048582, 0, 0, 1048583, 0, 0, 1048584, 0, 0, 1048585, 0, 0, 1048586, 0, 0, 1048587, 0, 0, 1048588, 0, 0, 1048589, 0, 0, 1048590, 0, 0, 1048591, 0, 0, 1048592, 0, 0, 1048593, 0, 0, 1048594, 0, 0, 1048595, 0, 0, 1048596, 0, 0, 1048597, 0, 0, 1048598, 0, 0, 1048599, 0, 0, 1048600, 0, 0, 1048601, 0, 0, 1048602, 0, 0, 1048603, 0, 0, 1048604, 0, 0, 1048605, 0, 0, 983069, 0, 0, 917533, 0, 0, 851997, 0, 0, 786461, 0, 0, 262173, 0, 0, 196637, 0, 0, 131101, 0, 0, 65565, 0, 0, 196612, 0, 1, 196613, 0, 1, 196614, 0, 1, 196615, 0, 1, 196616, 0, 1, 851993, 0, 1, 851992, 0, 1, 851991, 0, 1, 851990, 0, 1, 851989, 0, 1, 524302, 65536, 0)
+
+[node name="SnakeHead" parent="." instance=ExtResource("2_gesju")]
+position = Vector2(323, 74)
+scale = Vector2(4, 4)
+controls = ExtResource("3_wfnaq")
+
+[node name="SnakeHead2" parent="." instance=ExtResource("2_gesju")]
+position = Vector2(767, 477)
+scale = Vector2(4, 4)
+controls = ExtResource("4_q3gsv")
+
+[node name="FoodSpawner" parent="." instance=ExtResource("5_1fx7f")]
+position = Vector2(467, 271)
+max_food = 2
+
+[node name="Timer" parent="FoodSpawner" index="0"]
+wait_time = 0.3
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_enabled = true
+position_smoothing_speed = 2.0
+editor_draw_limits = true
+script = ExtResource("6_rkqqe")
+
+[editable path="FoodSpawner"]

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bqnv7ka6e4s73"
-path="res://.godot/imported/apple.png-fb5ddfa8eaa01c1807073384bbd9e529.ctex"
+uid="uid://b51t6sjp5wqw8"
+path="res://.godot/imported/sword.png-bb1b845d16a8edb8a8b6c847876a2df9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/apple.png"
-dest_files=["res://.godot/imported/apple.png-fb5ddfa8eaa01c1807073384bbd9e529.ctex"]
+source_file="res://Assets/Snake/sword.png"
+dest_files=["res://.godot/imported/sword.png-bb1b845d16a8edb8a8b6c847876a2df9.ctex"]
 
 [params]
 

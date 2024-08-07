@@ -1,0 +1,185 @@
+[gd_scene load_steps=18 format=3 uid="uid://h05bpqqsdr21"]
+
+[ext_resource type="Script" path="res://Scenes/SceneScript.gd" id="1_7mfc7"]
+[ext_resource type="Texture2D" uid="uid://cqnhqnsinv0ah" path="res://Assets/random placeholder tileset.png" id="1_lc5ti"]
+[ext_resource type="PackedScene" uid="uid://c6yg1bkqw8ldx" path="res://Entities/Player/snake_head.tscn" id="2_gesju"]
+[ext_resource type="Script" path="res://Entities/Player/Controls/PlayerControls.gd" id="4_v66g3"]
+[ext_resource type="PackedScene" uid="uid://cldtufdwg5hbn" path="res://Entities/Objects/FoodSpawner.tscn" id="6_8b75m"]
+[ext_resource type="PackedScene" uid="uid://mojhv5f5pqoy" path="res://Scenes/pause_menu.tscn" id="6_iiamt"]
+[ext_resource type="Script" path="res://Scripts/Camera2D.gd" id="6_rkqqe"]
+[ext_resource type="Resource" uid="uid://b883yvfauceiv" path="res://Entities/Player/Controls/P2_Controls.tres" id="7_nymlp"]
+[ext_resource type="Texture2D" uid="uid://dtng7usar7fba" path="res://Snakes and Blades/Snakes&Blades logo Black.png" id="9_2qfp8"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_dycg2"]
+font_size = 64
+
+[sub_resource type="Animation" id="Animation_pmqec"]
+resource_name = "Start"
+length = 2.0
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Logo:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_23nql"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Logo:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yoti1"]
+_data = {
+"RESET": SubResource("Animation_23nql"),
+"Start": SubResource("Animation_pmqec")
+}
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1ac2s"]
+texture = ExtResource("1_lc5ti")
+texture_region_size = Vector2i(8, 8)
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4, -4, 4, -4, 4, 4, -4, 4)
+1:0/0 = 0
+1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:0/0/physics_layer_0/angular_velocity = 0.0
+0:1/0 = 0
+0:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:1/0/physics_layer_0/angular_velocity = 0.0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4, -4, 4, -4, 4, 4, -4, 4)
+1:1/0 = 0
+1:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:1/0/physics_layer_0/angular_velocity = 0.0
+
+[sub_resource type="TileSet" id="TileSet_24x0f"]
+tile_size = Vector2i(8, 8)
+physics_layer_0/collision_layer = 1
+physics_layer_0/collision_mask = 0
+terrain_set_0/mode = 0
+custom_data_layer_0/name = ""
+custom_data_layer_0/type = 0
+sources/0 = SubResource("TileSetAtlasSource_1ac2s")
+
+[sub_resource type="Environment" id="Environment_qaalf"]
+background_mode = 3
+tonemap_mode = 2
+glow_enabled = true
+glow_intensity = 0.1
+glow_strength = 0.8
+glow_bloom = 0.1
+glow_blend_mode = 1
+
+[sub_resource type="Resource" id="Resource_vl7re"]
+resource_local_to_scene = true
+script = ExtResource("4_v66g3")
+player_index = 1
+left = "p1_left"
+right = "p1_right"
+dash = "p1_dash"
+snake_layer = 9
+blade_layer = 10
+snake_mask = 9
+blade_mask = 10
+
+[node name="Lobby" type="Node2D"]
+script = ExtResource("1_7mfc7")
+
+[node name="Logo" type="Sprite2D" parent="."]
+texture_filter = 2
+position = Vector2(480, 229)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("9_2qfp8")
+
+[node name="Label" type="Label" parent="Logo"]
+z_index = 5
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -730.0
+offset_top = -612.5
+offset_right = -282.0
+offset_bottom = -561.5
+grow_horizontal = 2
+grow_vertical = 0
+text = "Hold \"W\" to Charge"
+label_settings = SubResource("LabelSettings_dycg2")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_yoti1")
+}
+
+[node name="Camera2D" type="Camera2D" parent="."]
+z_index = 5
+position = Vector2(480, 270)
+position_smoothing_enabled = true
+position_smoothing_speed = 2.0
+editor_draw_limits = true
+script = ExtResource("6_rkqqe")
+
+[node name="Debug" type="Label" parent="Camera2D"]
+offset_left = -375.0
+offset_top = -237.0
+offset_right = -335.0
+offset_bottom = -214.0
+
+[node name="PauseMenu" parent="Camera2D" instance=ExtResource("6_iiamt")]
+visible = false
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = -66.0
+offset_top = -51.0
+offset_right = -66.0
+offset_bottom = -51.0
+grow_horizontal = 1
+grow_vertical = 1
+pivot_offset = Vector2(50, 50)
+
+[node name="TileMap" type="TileMap" parent="." groups=["walls"]]
+scale = Vector2(4, 4)
+tile_set = SubResource("TileSet_24x0f")
+rendering_quadrant_size = 8
+format = 2
+layer_0/tile_data = PackedInt32Array(2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 6, 0, 0, 7, 0, 0, 8, 0, 0, 9, 0, 0, 10, 0, 0, 11, 0, 0, 12, 0, 0, 13, 0, 0, 25, 0, 0, 24, 0, 0, 23, 0, 0, 22, 0, 0, 21, 0, 0, 20, 0, 0, 19, 0, 0, 18, 0, 0, 17, 0, 0, 16, 0, 0, 15, 0, 0, 14, 0, 0, 26, 0, 0, 27, 0, 0, 28, 0, 0, 29, 0, 0, 65536, 0, 0, 131072, 0, 0, 196608, 0, 0, 262144, 0, 0, 327680, 0, 0, 393216, 0, 0, 458752, 0, 0, 524288, 0, 1, 589824, 0, 0, 655360, 0, 0, 720896, 0, 0, 786432, 0, 0, 851968, 0, 0, 917504, 0, 0, 983040, 0, 0, 1048576, 0, 0, 1048577, 0, 0, 1048578, 0, 0, 1048579, 0, 0, 1048580, 0, 0, 1048581, 0, 0, 1048582, 0, 0, 1048583, 0, 0, 1048584, 0, 0, 1048585, 0, 0, 1048586, 0, 0, 1048587, 0, 0, 1048588, 0, 0, 1048589, 0, 0, 1048590, 0, 0, 1048591, 0, 0, 1048592, 0, 0, 1048593, 0, 0, 1048594, 0, 0, 1048595, 0, 0, 1048596, 0, 0, 1048597, 0, 0, 1048598, 0, 0, 1048599, 0, 0, 1048600, 0, 0, 1048601, 0, 0, 1048602, 0, 0, 1048603, 0, 0, 1048604, 0, 0, 1048605, 0, 0, 983069, 0, 0, 917533, 0, 0, 851997, 0, 0, 262173, 0, 0, 196637, 0, 0, 131101, 0, 0, 65565, 0, 0, 1, 0, 0, 0, 0, 0, 327709, 0, 0, 393245, 0, 0, 458781, 0, 0, 524317, 0, 0, 589853, 0, 0, 786461, 0, 0, 720925, 0, 0, 655389, 0, 0, 589825, 0, 0, 458753, 0, 0, 589826, 0, 0, 458754, 0, 0, 524289, 0, 1, 655361, 0, 0, 393217, 0, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_qaalf")
+
+[node name="SnakeHead" parent="." instance=ExtResource("2_gesju")]
+self_modulate = Color(100, 1, 1, 1)
+position = Vector2(740, 426)
+controls = SubResource("Resource_vl7re")
+
+[node name="SnakeHead2" parent="." instance=ExtResource("2_gesju")]
+position = Vector2(891, 468)
+rotation = -0.0872665
+controls = ExtResource("7_nymlp")
+
+[node name="FoodSpawner" parent="." instance=ExtResource("6_8b75m")]
+position = Vector2(904, 290)
+max_food = 3
+
+[editable path="FoodSpawner"]

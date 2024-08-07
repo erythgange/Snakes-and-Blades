@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bqnv7ka6e4s73"
-path="res://.godot/imported/apple.png-fb5ddfa8eaa01c1807073384bbd9e529.ctex"
+uid="uid://uhky22rr4wby"
+path="res://.godot/imported/parry-circle.png-59ac1d59c5b18dd16d48c89fe1d64957.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/apple.png"
-dest_files=["res://.godot/imported/apple.png-fb5ddfa8eaa01c1807073384bbd9e529.ctex"]
+source_file="res://Assets/parry-circle.png"
+dest_files=["res://.godot/imported/parry-circle.png-59ac1d59c5b18dd16d48c89fe1d64957.ctex"]
 
 [params]
 

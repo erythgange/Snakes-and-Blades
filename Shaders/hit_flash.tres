@@ -3,6 +3,7 @@
 [sub_resource type="VisualShaderNodeColorParameter" id="VisualShaderNodeColorParameter_obmk2"]
 parameter_name = "tint"
 default_value_enabled = true
+default_value = Color(5, 5, 5, 1)
 
 [sub_resource type="VisualShaderNodeBooleanParameter" id="VisualShaderNodeBooleanParameter_cwtdd"]
 parameter_name = "enabled"
@@ -19,7 +20,7 @@ code = "shader_type canvas_item;
 render_mode blend_mix;
 
 uniform bool enabled = false;
-uniform vec4 tint : source_color = vec4(1.000000, 1.000000, 1.000000, 1.000000);
+uniform vec4 tint : source_color = vec4(5.000000, 5.000000, 5.000000, 1.000000);
 
 
 

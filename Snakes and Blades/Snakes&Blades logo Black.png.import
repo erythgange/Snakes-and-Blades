@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bqnv7ka6e4s73"
-path="res://.godot/imported/apple.png-fb5ddfa8eaa01c1807073384bbd9e529.ctex"
+uid="uid://dtng7usar7fba"
+path="res://.godot/imported/Snakes&Blades logo Black.png-a329519ab2ea92264d909895917e5f49.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/apple.png"
-dest_files=["res://.godot/imported/apple.png-fb5ddfa8eaa01c1807073384bbd9e529.ctex"]
+source_file="res://Snakes and Blades/Snakes&Blades logo Black.png"
+dest_files=["res://.godot/imported/Snakes&Blades logo Black.png-a329519ab2ea92264d909895917e5f49.ctex"]
 
 [params]
 

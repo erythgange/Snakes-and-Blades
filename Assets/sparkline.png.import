@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bqnv7ka6e4s73"
-path="res://.godot/imported/apple.png-fb5ddfa8eaa01c1807073384bbd9e529.ctex"
+uid="uid://dhaneltcgmdwx"
+path="res://.godot/imported/sparkline.png-7edd35f2e10d6ac619c7889f49d2e2fc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/apple.png"
-dest_files=["res://.godot/imported/apple.png-fb5ddfa8eaa01c1807073384bbd9e529.ctex"]
+source_file="res://Assets/sparkline.png"
+dest_files=["res://.godot/imported/sparkline.png-7edd35f2e10d6ac619c7889f49d2e2fc.ctex"]
 
 [params]
 

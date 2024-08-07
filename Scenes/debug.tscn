@@ -1,8 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://cl5p57gcm5w12"]
-
-[ext_resource type="Texture2D" uid="uid://cqnhqnsinv0ah" path="res://Assets/random placeholder tileset.png" id="1_32j75"]
-
-[node name="Node2D" type="Node2D"]
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_32j75")

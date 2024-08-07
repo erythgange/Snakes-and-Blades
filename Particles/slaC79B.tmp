@@ -1,0 +1,246 @@
+[gd_scene load_steps=22 format=3 uid="uid://cnc00m3mp00l7"]
+
+[ext_resource type="Script" path="res://Particles/Scripts/SlashScript.gd" id="1_ehun6"]
+[ext_resource type="Texture2D" uid="uid://b53yma3avkej2" path="res://Assets/line-Sheet.png" id="2_ee1l4"]
+[ext_resource type="Texture2D" uid="uid://cpdk4b71ce66m" path="res://Assets/slash/slash1.png" id="2_ppvnu"]
+[ext_resource type="Texture2D" uid="uid://t5w7etojgkpq" path="res://Assets/slash/slash2.png" id="3_3a2nk"]
+[ext_resource type="Texture2D" uid="uid://c2ycxbuoyir1a" path="res://Assets/slash/slash3.png" id="4_g23a7"]
+[ext_resource type="Texture2D" uid="uid://buec4ldnh5gjo" path="res://Assets/slash/slash4.png" id="5_nluc3"]
+[ext_resource type="Texture2D" uid="uid://c5e2l8yg02r7f" path="res://Assets/slash/slash_mark_sheet1.png" id="6_osslj"]
+[ext_resource type="Texture2D" uid="uid://js6rp6t2jbo8" path="res://Assets/slash/slash_mark_sheet2.png" id="7_orgj7"]
+[ext_resource type="Texture2D" uid="uid://bbh7jt68mw06p" path="res://Assets/slash/slash_mark_sheet3.png" id="8_rjfhn"]
+[ext_resource type="Texture2D" uid="uid://dig6eoancxem5" path="res://Assets/slash/slash_mark_sheet4.png" id="9_sjgi7"]
+[ext_resource type="Texture2D" uid="uid://so6ru7d34s74" path="res://Assets/slash/slash_mark_sheet5.png" id="10_kup6e"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_l17t6"]
+particles_animation = true
+particles_anim_h_frames = 3
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_admbr"]
+max_value = 100.0
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 100), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_8ml5o"]
+offsets = PackedFloat32Array(0, 0.534314, 1)
+colors = PackedColorArray(16.757, 0.433, 0, 1, 0.79, 0.58381, 0.5767, 0.466667, 0, 0, 0, 0)
+
+[sub_resource type="Curve" id="Curve_3hcc2"]
+max_value = 200.0
+_data = [Vector2(0.0258621, 19.7802), 0.0, 344.52, 0, 0, Vector2(1, 200), -21.8524, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_h0vrp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_ppvnu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_3a2nk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_g23a7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_nluc3")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"default",
+"speed": 30.0
+}]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_4ew5y"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_o6flc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_osslj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_orgj7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_rjfhn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_sjgi7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_kup6e")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_0l5jh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../SlashSprite:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.54, 0.54, 0.54, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../SlashSprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../Sparks:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_02tqp"]
+resource_name = "Slash"
+length = 10.0
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../SlashSprite:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:self_modulate")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1, 5, 10),
+"transitions": PackedFloat32Array(0.258816, 0.258816, 1),
+"update": 0,
+"values": [Color(10, 0.7, 0, 1), Color(0, 0, 0, 0.505), Color(0, 0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../SlashSprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../Sparks:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_a5j1a"]
+_data = {
+"RESET": SubResource("Animation_0l5jh"),
+"Slash": SubResource("Animation_02tqp")
+}
+
+[node name="Slash" type="Node2D"]
+script = ExtResource("1_ehun6")
+
+[node name="Sparks" type="CPUParticles2D" parent="."]
+z_index = 1
+material = SubResource("CanvasItemMaterial_l17t6")
+position = Vector2(18, 0)
+rotation = 1.5708
+scale = Vector2(0.554688, 0.554688)
+emitting = false
+amount = 20
+lifetime = 10.0
+explosiveness = 1.0
+randomness = 0.41
+lifetime_randomness = 1.0
+local_coords = true
+texture = ExtResource("2_ee1l4")
+particle_flag_align_y = true
+spread = 20.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 10.0
+initial_velocity_max = 100.0
+damping_min = 100.0
+damping_max = 100.0
+damping_curve = SubResource("Curve_admbr")
+angle_max = 114.3
+color_ramp = SubResource("Gradient_8ml5o")
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+anim_speed_curve = SubResource("Curve_3hcc2")
+
+[node name="SlashSprite" type="AnimatedSprite2D" parent="."]
+visible = false
+modulate = Color(3.01, 1, 0.639, 1)
+z_index = 1
+position = Vector2(9.5, 0)
+scale = Vector2(0.554688, 0.554688)
+sprite_frames = SubResource("SpriteFrames_h0vrp")
+frame = 1
+
+[node name="MarkSprite" type="AnimatedSprite2D" parent="."]
+self_modulate = Color(0.54, 0.54, 0.54, 1)
+material = SubResource("CanvasItemMaterial_4ew5y")
+position = Vector2(9.5, 0)
+scale = Vector2(0.555, 0.555)
+sprite_frames = SubResource("SpriteFrames_o6flc")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../MarkSprite")
+libraries = {
+"": SubResource("AnimationLibrary_a5j1a")
+}
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

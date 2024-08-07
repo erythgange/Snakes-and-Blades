@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bqnv7ka6e4s73"
-path="res://.godot/imported/apple.png-fb5ddfa8eaa01c1807073384bbd9e529.ctex"
+uid="uid://bt2beaa8eu1jf"
+path="res://.godot/imported/parry-spark.png-aa30001a3b75842e01941e67600e037f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/apple.png"
-dest_files=["res://.godot/imported/apple.png-fb5ddfa8eaa01c1807073384bbd9e529.ctex"]
+source_file="res://Assets/parry-spark.png"
+dest_files=["res://.godot/imported/parry-spark.png-aa30001a3b75842e01941e67600e037f.ctex"]
 
 [params]
 
