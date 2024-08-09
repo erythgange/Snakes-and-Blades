@@ -7,6 +7,8 @@ extends Node
 
 func _spawn_food() -> void:
 	var food = food_scene.instantiate()
+	food.angular_velocity = 100
+	
 	#food.position = self.global_position
 	
 	var tween = create_tween()

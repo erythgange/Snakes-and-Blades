@@ -1,9 +1,10 @@
 extends Label
 
-@export var time_left: int = 30
+@export var time_left: int
 
 
 func round_start():
+	
 	for x in time_left: 
 		await get_tree().create_timer(.001).timeout
 		text = str(x)
@@ -13,6 +14,7 @@ func round_start():
 
 func _ready(): 
 	set_physics_process(false)
+	$RoundCountdownTimer.wait_time = time_left
 	
 func _physics_process(delta): 
 	update_label_text()
@@ -22,12 +24,9 @@ func update_label_text():
 
 
 func _on_round_countdown_timer_timeout():
-	if time_left > 0:
-		time_left -= 1
-		self.text = str(time_left)
-	
-	if time_left <= 0: 
-		if $SnakeBody1.health > $SnakeBody2.health:
-			$".."._game_over(2) #
-		else: $".."._game_over(1) #
-
+	time_left -= 1
+	self.text = str(time_left)
+	if time_left < 1: 
+		if $SnakeHead.Health > $SnakeHead2.Health: $"../..".p1_win = true
+		else: $"../..".p2_win = true
+		$"../.."._end_round()

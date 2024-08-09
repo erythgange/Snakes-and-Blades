@@ -52,7 +52,7 @@ custom_data_layer_0/name = ""
 custom_data_layer_0/type = 0
 sources/0 = SubResource("TileSetAtlasSource_1ac2s")
 
-[sub_resource type="Resource" id="Resource_an8hg"]
+[sub_resource type="Resource" id="Resource_mi0om"]
 resource_local_to_scene = true
 script = ExtResource("14_18o61")
 player_index = 1
@@ -495,9 +495,11 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 script = ExtResource("3_fnjrt")
+time_left = 30
 
 [node name="RoundCountdownTimer" type="Timer" parent="Camera2D/RoundCountdown"]
 wait_time = 30.0
+one_shot = true
 
 [node name="FalseStart" type="Label" parent="Camera2D"]
 visible = false
@@ -532,36 +534,31 @@ format = 2
 layer_0/tile_data = PackedInt32Array(2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 6, 0, 0, 7, 0, 0, 8, 0, 0, 9, 0, 0, 10, 0, 0, 11, 0, 0, 12, 0, 0, 13, 0, 0, 25, 0, 0, 24, 0, 0, 23, 0, 0, 22, 0, 0, 21, 0, 0, 20, 0, 0, 19, 0, 0, 18, 0, 0, 17, 0, 0, 16, 0, 0, 15, 0, 0, 14, 0, 0, 26, 0, 0, 27, 0, 0, 28, 0, 0, 29, 0, 0, 65536, 0, 0, 131072, 0, 0, 196608, 0, 0, 262144, 0, 0, 327680, 0, 0, 393216, 0, 0, 458752, 0, 0, 589824, 0, 0, 655360, 0, 0, 720896, 0, 0, 786432, 0, 0, 851968, 0, 0, 917504, 0, 0, 983040, 0, 0, 1048576, 0, 0, 1048577, 0, 0, 1048578, 0, 0, 1048579, 0, 0, 1048580, 0, 0, 1048581, 0, 0, 1048582, 0, 0, 1048583, 0, 0, 1048584, 0, 0, 1048585, 0, 0, 1048586, 0, 0, 1048587, 0, 0, 1048588, 0, 0, 1048589, 0, 0, 1048590, 0, 0, 1048591, 0, 0, 1048592, 0, 0, 1048593, 0, 0, 1048594, 0, 0, 1048595, 0, 0, 1048596, 0, 0, 1048597, 0, 0, 1048598, 0, 0, 1048599, 0, 0, 1048600, 0, 0, 1048601, 0, 0, 1048602, 0, 0, 1048603, 0, 0, 1048604, 0, 0, 1048605, 0, 0, 983069, 0, 0, 917533, 0, 0, 851997, 0, 0, 262173, 0, 0, 196637, 0, 0, 131101, 0, 0, 65565, 0, 0, 1, 0, 0, 0, 0, 0, 327709, 0, 0, 393245, 0, 0, 458781, 0, 0, 524317, 0, 0, 589853, 0, 0, 786461, 0, 0, 720925, 0, 0, 655389, 0, 0, 524288, 0, 0)
 
 [node name="FoodSpawner" parent="." instance=ExtResource("12_kkyjx")]
-position = Vector2(488, 492)
-max_food = 3
+position = Vector2(483, 359)
+max_food = 5
 
 [node name="FoodSpawner2" parent="." instance=ExtResource("12_kkyjx")]
-position = Vector2(481, 63)
-max_food = 3
-
-[node name="FoodSpawner3" parent="." instance=ExtResource("12_kkyjx")]
-position = Vector2(53, 288)
-max_food = 3
-
-[node name="FoodSpawner4" parent="." instance=ExtResource("12_kkyjx")]
-position = Vector2(901, 272)
-max_food = 3
+position = Vector2(478, 181)
+max_food = 5
 
 [node name="SnakeSpawnerP1" parent="." instance=ExtResource("13_1bir4")]
-position = Vector2(146, 205)
+position = Vector2(210, 180)
 message = "P1 Ready!"
-controls = SubResource("Resource_an8hg")
+controls = SubResource("Resource_mi0om")
 can_die = true
-control_delay = 0.5
+control_delay = 0.1
 spawn_bonus_speed = 200
 spawn_health = 10
 
+[node name="Shine" parent="SnakeSpawnerP1" index="0"]
+position = Vector2(0, -3)
+
 [node name="HoldCharge" parent="SnakeSpawnerP1" index="1"]
 material = SubResource("ShaderMaterial_5fcke")
-offset_left = -66.0
-offset_top = -27.0
-offset_right = 196.0
-offset_bottom = -1.0
+offset_left = -130.0
+offset_top = -14.0
+offset_right = 132.0
+offset_bottom = 12.0
 pivot_offset = Vector2(14, 27)
 text = "P1: Hold \"W\" to Charge"
 label_settings = SubResource("LabelSettings_5fsyq")
@@ -572,16 +569,19 @@ message = "P2 Ready!"
 controls = ExtResource("10_86v64")
 can_die = true
 spawn_angle = 180.0
-control_delay = 0.5
+control_delay = 0.1
 spawn_bonus_speed = 200
 spawn_health = 10
 
+[node name="Shine" parent="SnakeSpawnerP2" index="0"]
+position = Vector2(3, 1)
+
 [node name="HoldCharge" parent="SnakeSpawnerP2" index="1"]
 material = SubResource("ShaderMaterial_5fcke")
-offset_left = -149.0
-offset_top = 2.0
-offset_right = 111.0
-offset_bottom = 28.0
+offset_left = -138.0
+offset_top = -11.0
+offset_right = 122.0
+offset_bottom = 15.0
 text = "P2: Hold \"I\" to Charge"
 label_settings = SubResource("LabelSettings_3rt0b")
 
@@ -591,10 +591,6 @@ libraries = {
 }
 playback_default_blend_time = 1.0
 
-[node name="Rectangle" type="Sprite2D" parent="."]
-position = Vector2(351, 241)
-texture = ExtResource("5_i4r04")
-
 [connection signal="timeout" from="Camera2D/RoundCountdown/RoundCountdownTimer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="Camera2D/RoundCountdown/RoundCountdownTimer" to="." method="_on_round_countdown_timer_timeout"]
 [connection signal="timeout" from="Camera2D/RoundCountdown/RoundCountdownTimer" to="Camera2D/RoundCountdown" method="_on_timer_timeout"]
@@ -603,7 +599,5 @@ texture = ExtResource("5_i4r04")
 
 [editable path="FoodSpawner"]
 [editable path="FoodSpawner2"]
-[editable path="FoodSpawner3"]
-[editable path="FoodSpawner4"]
 [editable path="SnakeSpawnerP1"]
 [editable path="SnakeSpawnerP2"]

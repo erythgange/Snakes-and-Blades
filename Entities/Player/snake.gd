@@ -116,8 +116,10 @@ func _bounce(collision) -> void:
 			speed += 20
 			bonus_speed += speed/5
 			$DashParticles.emitting = true
+			$parry.play()
 			_popup_numbers((speed+bonus_speed)/5, false, true)
 		else: # if collided while not*** parrying:
+			$boom.play()
 			_hurt((speed+bonus_speed)/5, true, speed) # damage when colliding
 			_spawn_particle(particle_bounce, collision.get_position())
 			speed = speed*0.50 #speed loss when colliding
@@ -202,7 +204,7 @@ func _hurt(damage: int, is_collision: bool, speed: float) -> void:
 			invulnerable = true
 			turn_amplifier = 0
 			hit_flash.play("hit_flash_long")
-			
+			$Hurt.play()
 			for x in body_parts.size():
 				if damage < 20: body_parts[x]._hit_flash()
 				else:
@@ -236,7 +238,7 @@ func _heal(heal: int) -> void:
 	if (heal + health) > 100:
 		heal = 100 - health
 	health += heal
-	# sfx
+	$heal.play()
 	_popup_numbers(heal, false, false)
 	hit_flash.play("hit_flash")
 	

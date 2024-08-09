@@ -21,11 +21,3 @@ func _physics_process(delta) -> void:
 func _camera_shake(amount):
 	shake_strength = amount 
 
-# zoom when winning a round
-func _wipeout_screen() -> void:
-	pass
-
-# fade to black
-func _fade(to_black: bool) -> void:
-	#if to_black == true: 
-	pass

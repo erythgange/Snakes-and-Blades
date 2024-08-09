@@ -11,9 +11,11 @@ extends Node2D
 @export var control_delay: float = 1.4
 @export var spawn_bonus_speed: int = 550
 @export var spawn_health: int = 20
+
 var spawn_max_speed: float = spawn_health * 2
 var spawn_speed: float = spawn_max_speed
 
+const particle_bounce = preload("res://Particles/bounce.tscn")
 const P1_CONTROLS = preload("res://Entities/Player/Controls/P1_Controls.tres")
 const P2_CONTROLS = preload("res://Entities/Player/Controls/P2_Controls.tres")
 const SNAKE_HEAD = preload("res://Entities/Player/snake_head.tscn")
@@ -45,7 +47,8 @@ func _process(delta) -> void:
 		else:
 			charge = 0
 			$AnimationPlayer.play("RESET")
-			
+
+	
 func spawn(index) -> void:	
 	var snake = SNAKE_HEAD.instantiate()
 	snake.controls = controls
@@ -70,6 +73,8 @@ func spawn(index) -> void:
 	snake.can_attack = true
 	snake.set_collision_mask_value(1, true)
 	snake.can_die = can_die
+	
+	snake._spawn_particle(particle_bounce, global_position)
 	
 	self.queue_free()
 

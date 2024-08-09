@@ -6,6 +6,7 @@ var paused = false
 
 func _ready() -> void:
 	self.visible = false
+	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 
 func _process(delta) -> void: 
 	if $"../..".has_node("Logo"): pass

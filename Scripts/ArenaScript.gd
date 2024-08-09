@@ -36,7 +36,7 @@ func _game_over(snake_lost: int):
 	if game_over_done == false:
 		if snake_lost == 1: p2_win = true
 		if snake_lost == 2: p1_win = true
-		await get_tree().create_timer(.2, true, true, true).timeout
+		await get_tree().create_timer(.7, true, true, true).timeout
 		game_over_done = true
 		_end_round()
 
@@ -46,7 +46,7 @@ func _end_round():
 	$Camera2D/RoundCountdown.visible = false
 	$AnimationPlayer.play_backwards("normal")
 	if p1_win == true and p2_win == true:
-			$Camera2D/Winner.text = "TIE!"
+		$Camera2D/Winner.text = "TIE!"
 	elif p2_win == true:
 		$Camera2D/Winner.text = "P2 WINS!"
 		snake_winner = $SnakeHead2
@@ -59,7 +59,7 @@ func _end_round():
 	Engine.time_scale = 1
 	$Camera2D/Winner.visible = true
 
-	await get_tree().create_timer(5, true, true, true).timeout
+	await get_tree().create_timer(3, true, true, true).timeout
 	$AnimationPlayer.play_backwards("close")
 	await get_tree().create_timer(2, true, true, true).timeout
 	_ready()
