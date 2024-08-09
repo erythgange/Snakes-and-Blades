@@ -74,5 +74,5 @@ texture = ExtResource("3_m7ci6")
 [connection signal="pressed" from="VBoxContainer/Fullscreen" to="." method="_on_fullscreen_pressed"]
 [connection signal="toggled" from="VBoxContainer/Fullscreen" to="." method="_on_fullscreen_toggled"]
 [connection signal="pressed" from="VBoxContainer/Quit to Desktop" to="." method="_on_resume_pressed"]
-[connection signal="pressed" from="VBoxContainer/Quit to Desktop" to="." method="_on_quit_to_desktop_pressed"]
 [connection signal="pressed" from="VBoxContainer/Quit to Desktop" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Quit to Desktop" to="." method="_on_quit_to_desktop_pressed"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://c6yg1bkqw8ldx"]
+[gd_scene load_steps=42 format=3 uid="uid://c6yg1bkqw8ldx"]
 
 [ext_resource type="Script" path="res://Entities/Player/snake.gd" id="1_finu5"]
 [ext_resource type="Script" path="res://Entities/Player/Controls/PlayerControls.gd" id="2_84nlh"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://bjrradvp813fy" path="res://Entities/Overlap/Hurtbox.tscn" id="8_8fawv"]
 [ext_resource type="Texture2D" uid="uid://b25pigpqhuxy2" path="res://Assets/sample red dot.png" id="8_bpgga"]
 [ext_resource type="Texture2D" uid="uid://b51t6sjp5wqw8" path="res://Assets/Snake/sword.png" id="9_76ksf"]
+[ext_resource type="AudioStream" uid="uid://bloo223pmfhxc" path="res://Assets/Sounds/SLASH.mp3" id="11_xyec4"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_p4wfl"]
 particles_animation = true
@@ -270,6 +271,12 @@ shader = ExtResource("2_vysku")
 shader_parameter/enabled = false
 shader_parameter/tint = Color(5, 5, 5, 1)
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_bojpn"]
+random_pitch = 1.2
+streams_count = 1
+stream_0/stream = ExtResource("11_xyec4")
+stream_0/weight = 1.0
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rkhks"]
 radius = 1.0
 height = 12.0
@@ -464,6 +471,13 @@ material = SubResource("ShaderMaterial_etgld")
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("9_76ksf")
 offset = Vector2(0, -17)
+
+[node name="SlashSFX" type="AudioStreamPlayer2D" parent="Blade"]
+position = Vector2(-3.06418, -2.57115)
+rotation = 0.698132
+stream = SubResource("AudioStreamRandomizer_bojpn")
+pitch_scale = 0.75
+max_polyphony = 8
 
 [node name="BladeCollision" type="CollisionShape2D" parent="Blade"]
 position = Vector2(0, -9)

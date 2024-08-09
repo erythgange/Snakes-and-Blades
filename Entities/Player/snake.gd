@@ -121,7 +121,7 @@ func _bounce(collision) -> void:
 			_hurt((speed+bonus_speed)/5, true, speed) # damage when colliding
 			_spawn_particle(particle_bounce, collision.get_position())
 			speed = speed*0.50 #speed loss when colliding
-			bonus_speed = 0
+			bonus_speed = bonus_speed*0.80
 			if speed < 35: speed = 35 # minimum speed	
 
 func _create_body() -> void:
@@ -202,6 +202,7 @@ func _hurt(damage: int, is_collision: bool, speed: float) -> void:
 			invulnerable = true
 			turn_amplifier = 0
 			hit_flash.play("hit_flash_long")
+			
 			for x in body_parts.size():
 				if damage < 20: body_parts[x]._hit_flash()
 				else:
@@ -211,6 +212,7 @@ func _hurt(damage: int, is_collision: bool, speed: float) -> void:
 			if is_collision == true and (health - damage) <= 0: damage = health-1 # lives on 1hp
 			# snake cant grow past the health value
 			if position_history.size() > (body_parts.size()+1) *2: position_history.pop_front()
+			bonus_speed += damage 
 			health -= damage # damage for collision
 			_popup_numbers(damage, true, false)
 			if health < 1: _die()
@@ -290,10 +292,13 @@ func _dash(delta) -> void:
 				_spawn_particle(slash, global_position)
 				$Hitbox/HitboxShape.position.x = 0
 				is_parrying = false
-			
+
+@onready var slash_sfx = $Blade/SlashSFX
+
 func _slash() -> void:
 	if is_sword_onleft == true: blade_anim.play("Neutral")
 	else: blade_anim.play_backwards("Neutral")
+	slash_sfx.play()
 	is_sword_onleft = !is_sword_onleft
 	$Blade/BladeSprite.flip_h = !$Blade/BladeSprite.flip_h
 	can_speedup = true

@@ -52,7 +52,7 @@ custom_data_layer_0/name = ""
 custom_data_layer_0/type = 0
 sources/0 = SubResource("TileSetAtlasSource_1ac2s")
 
-[sub_resource type="Resource" id="Resource_efj2a"]
+[sub_resource type="Resource" id="Resource_an8hg"]
 resource_local_to_scene = true
 script = ExtResource("14_18o61")
 player_index = 1
@@ -177,6 +177,69 @@ tracks/7/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(444, 51)]
+}
+
+[sub_resource type="Animation" id="Animation_ux56d"]
+resource_name = "close"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera2D/Bottom:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(-6.72717, -6.72717),
+"update": 0,
+"values": [Vector2(0, 250), Vector2(0, 400)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Camera2D/Top:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(-6.72717, -6.72717),
+"update": 0,
+"values": [Vector2(0, -250), Vector2(0, -400)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Camera2D/Bottom:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(-6.72717, -6.72717),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0.784314)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Camera2D/Top:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(-6.72717, -6.72717),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0.784314)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Camera2D:zoom")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(-3.24901, -3.24901),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.15, 1.15)]
 }
 
 [sub_resource type="Animation" id="Animation_2mn1i"]
@@ -355,69 +418,6 @@ tracks/7/keys = {
 "values": [Vector2(444, 51), Vector2(444, 51)]
 }
 
-[sub_resource type="Animation" id="Animation_ux56d"]
-resource_name = "close"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Camera2D/Bottom:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(-6.72717, -6.72717),
-"update": 0,
-"values": [Vector2(0, 250), Vector2(0, 400)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Camera2D/Top:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(-6.72717, -6.72717),
-"update": 0,
-"values": [Vector2(0, -250), Vector2(0, -400)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Camera2D/Bottom:modulate")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(-6.72717, -6.72717),
-"update": 0,
-"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0.784314)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Camera2D/Top:modulate")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(-6.72717, -6.72717),
-"update": 0,
-"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0.784314)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Camera2D:zoom")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(-3.24901, -3.24901),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(1.15, 1.15)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_otash"]
 _data = {
 "RESET": SubResource("Animation_uux0y"),
@@ -451,6 +451,7 @@ text = "Snake Wins!"
 label_settings = ExtResource("2_tud74")
 
 [node name="Top" type="Sprite2D" parent="Camera2D"]
+visible = false
 modulate = Color(0, 0, 0, 1)
 z_index = 3
 position = Vector2(0, -250)
@@ -458,6 +459,7 @@ scale = Vector2(120, 100)
 texture = ExtResource("5_i4r04")
 
 [node name="Bottom" type="Sprite2D" parent="Camera2D"]
+visible = false
 modulate = Color(0, 0, 0, 1)
 z_index = 3
 position = Vector2(0, 250)
@@ -530,25 +532,25 @@ format = 2
 layer_0/tile_data = PackedInt32Array(2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 6, 0, 0, 7, 0, 0, 8, 0, 0, 9, 0, 0, 10, 0, 0, 11, 0, 0, 12, 0, 0, 13, 0, 0, 25, 0, 0, 24, 0, 0, 23, 0, 0, 22, 0, 0, 21, 0, 0, 20, 0, 0, 19, 0, 0, 18, 0, 0, 17, 0, 0, 16, 0, 0, 15, 0, 0, 14, 0, 0, 26, 0, 0, 27, 0, 0, 28, 0, 0, 29, 0, 0, 65536, 0, 0, 131072, 0, 0, 196608, 0, 0, 262144, 0, 0, 327680, 0, 0, 393216, 0, 0, 458752, 0, 0, 589824, 0, 0, 655360, 0, 0, 720896, 0, 0, 786432, 0, 0, 851968, 0, 0, 917504, 0, 0, 983040, 0, 0, 1048576, 0, 0, 1048577, 0, 0, 1048578, 0, 0, 1048579, 0, 0, 1048580, 0, 0, 1048581, 0, 0, 1048582, 0, 0, 1048583, 0, 0, 1048584, 0, 0, 1048585, 0, 0, 1048586, 0, 0, 1048587, 0, 0, 1048588, 0, 0, 1048589, 0, 0, 1048590, 0, 0, 1048591, 0, 0, 1048592, 0, 0, 1048593, 0, 0, 1048594, 0, 0, 1048595, 0, 0, 1048596, 0, 0, 1048597, 0, 0, 1048598, 0, 0, 1048599, 0, 0, 1048600, 0, 0, 1048601, 0, 0, 1048602, 0, 0, 1048603, 0, 0, 1048604, 0, 0, 1048605, 0, 0, 983069, 0, 0, 917533, 0, 0, 851997, 0, 0, 262173, 0, 0, 196637, 0, 0, 131101, 0, 0, 65565, 0, 0, 1, 0, 0, 0, 0, 0, 327709, 0, 0, 393245, 0, 0, 458781, 0, 0, 524317, 0, 0, 589853, 0, 0, 786461, 0, 0, 720925, 0, 0, 655389, 0, 0, 524288, 0, 0)
 
 [node name="FoodSpawner" parent="." instance=ExtResource("12_kkyjx")]
-position = Vector2(482, 358)
+position = Vector2(488, 492)
 max_food = 3
 
 [node name="FoodSpawner2" parent="." instance=ExtResource("12_kkyjx")]
-position = Vector2(481, 190)
+position = Vector2(481, 63)
 max_food = 3
 
 [node name="FoodSpawner3" parent="." instance=ExtResource("12_kkyjx")]
-position = Vector2(110, 258)
+position = Vector2(53, 288)
 max_food = 3
 
 [node name="FoodSpawner4" parent="." instance=ExtResource("12_kkyjx")]
-position = Vector2(862, 259)
+position = Vector2(901, 272)
 max_food = 3
 
 [node name="SnakeSpawnerP1" parent="." instance=ExtResource("13_1bir4")]
 position = Vector2(146, 205)
 message = "P1 Ready!"
-controls = SubResource("Resource_efj2a")
+controls = SubResource("Resource_an8hg")
 can_die = true
 control_delay = 0.5
 spawn_bonus_speed = 200

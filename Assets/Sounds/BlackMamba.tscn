@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cf3vri4b7op5m"]
+
+[ext_resource type="AudioStream" uid="uid://duu25imgackmc" path="res://Assets/Sounds/BlackMamba.mp3" id="1_kv6vj"]
+
+[node name="Gameplay" type="AudioStreamPlayer2D"]
+stream = ExtResource("1_kv6vj")
+autoplay = true

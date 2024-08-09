@@ -17,6 +17,10 @@ config/features=PackedStringArray("4.2", "Forward Plus")
 boot_splash/show_image=false
 config/icon="res://Snakes and Blades/Snakes n Blades Logo Small Dark.png"
 
+[autoload]
+
+BlackMamba="*res://Assets/Sounds/BlackMamba.tscn"
+
 [display]
 
 window/size/viewport_width=960
