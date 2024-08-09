@@ -24,9 +24,8 @@ func update_label_text():
 
 
 func _on_round_countdown_timer_timeout():
+	if self.text == "1": 
+		$"../.."._end_round()
 	time_left -= 1
 	self.text = str(time_left)
-	if time_left < 1: 
-		if $SnakeHead.Health > $SnakeHead2.Health: $"../..".p1_win = true
-		else: $"../..".p2_win = true
-		$"../.."._end_round()
+	

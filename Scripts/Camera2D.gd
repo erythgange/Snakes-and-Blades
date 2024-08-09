@@ -20,4 +20,4 @@ func _physics_process(delta) -> void:
 # camera shake when taking damage/parrying
 func _camera_shake(amount):
 	shake_strength = amount 
-
+	$boom.play()

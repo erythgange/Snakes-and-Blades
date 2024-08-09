@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://dgrqv5febvf73"]
+[gd_scene load_steps=30 format=3 uid="uid://dgrqv5febvf73"]
 
 [ext_resource type="Script" path="res://Scripts/ArenaScript.gd" id="1_3ux2s"]
 [ext_resource type="LabelSettings" uid="uid://b4dccrw7of7ol" path="res://Snakes and Blades/Fonts/CountdownLabelSettings.tres" id="2_tud74"]
@@ -9,6 +9,7 @@
 [ext_resource type="LabelSettings" uid="uid://vtxy4t63vqil" path="res://Snakes and Blades/Fonts/LabelSettings.tres" id="8_dh5dv"]
 [ext_resource type="Script" path="res://Scripts/Camera2D.gd" id="9_8qfge"]
 [ext_resource type="Resource" uid="uid://b883yvfauceiv" path="res://Entities/Player/Controls/P2_Controls.tres" id="10_86v64"]
+[ext_resource type="AudioStream" uid="uid://dys52365hpm1p" path="res://Assets/Sounds/boom.wav" id="10_6872g"]
 [ext_resource type="PackedScene" uid="uid://mojhv5f5pqoy" path="res://Scenes/pause_menu.tscn" id="10_ody26"]
 [ext_resource type="Texture2D" uid="uid://cqnhqnsinv0ah" path="res://Assets/random placeholder tileset.png" id="11_vg6cv"]
 [ext_resource type="PackedScene" uid="uid://cldtufdwg5hbn" path="res://Entities/Objects/FoodSpawner.tscn" id="12_kkyjx"]
@@ -24,6 +25,13 @@ glow_intensity = 0.1
 glow_strength = 0.8
 glow_bloom = 0.1
 glow_blend_mode = 1
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_di77g"]
+random_pitch = 1.2
+random_volume_offset_db = 2.0
+streams_count = 1
+stream_0/stream = ExtResource("10_6872g")
+stream_0/weight = 1.0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1ac2s"]
 texture = ExtResource("11_vg6cv")
@@ -52,7 +60,7 @@ custom_data_layer_0/name = ""
 custom_data_layer_0/type = 0
 sources/0 = SubResource("TileSetAtlasSource_1ac2s")
 
-[sub_resource type="Resource" id="Resource_mi0om"]
+[sub_resource type="Resource" id="Resource_sgj60"]
 resource_local_to_scene = true
 script = ExtResource("14_18o61")
 player_index = 1
@@ -526,6 +534,11 @@ vertical_alignment = 1
 autowrap_mode = 2
 script = ExtResource("8_44mre")
 
+[node name="boom" type="AudioStreamPlayer2D" parent="Camera2D"]
+stream = SubResource("AudioStreamRandomizer_di77g")
+volume_db = 10.0
+pitch_scale = 1.5
+
 [node name="TileMap" type="TileMap" parent="." groups=["walls"]]
 scale = Vector2(4, 4)
 tile_set = SubResource("TileSet_24x0f")
@@ -544,7 +557,7 @@ max_food = 5
 [node name="SnakeSpawnerP1" parent="." instance=ExtResource("13_1bir4")]
 position = Vector2(210, 180)
 message = "P1 Ready!"
-controls = SubResource("Resource_mi0om")
+controls = SubResource("Resource_sgj60")
 can_die = true
 control_delay = 0.1
 spawn_bonus_speed = 200

@@ -45,7 +45,7 @@ var snake_winner
 func _end_round():
 	$Camera2D/RoundCountdown.visible = false
 	$AnimationPlayer.play_backwards("normal")
-	if p1_win == true and p2_win == true:
+	if (p1_win == true and p2_win == true) or (p1_win == false and p2_win == false):
 		$Camera2D/Winner.text = "TIE!"
 	elif p2_win == true:
 		$Camera2D/Winner.text = "P2 WINS!"
