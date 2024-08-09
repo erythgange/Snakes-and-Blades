@@ -1,15 +1,15 @@
 extends Control
 
 @onready var panel_container = $ColorRect
-@onready var v_box_container = $PanelContainer/VBoxContainer
+@onready var v_box_container = $VBoxContainer
 var paused = false
 
 func _ready() -> void:
 	self.visible = false
 
 func _process(delta) -> void: 
-	if Input.is_action_just_pressed("esc"):
-		_pause_menu()
+	if $"../..".has_node("Logo"): pass
+	elif Input.is_action_just_pressed("esc"): _pause_menu()
 	
 func _pause_menu() -> void:
 	if paused:

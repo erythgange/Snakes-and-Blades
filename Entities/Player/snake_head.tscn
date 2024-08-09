@@ -490,8 +490,8 @@ environment = SubResource("Environment_uqbxj")
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
 [connection signal="area_entered" from="Hitbox" to="Hitbox" method="_on_area_entered"]
 [connection signal="body_entered" from="Blade" to="." method="_on_blade_body_entered"]
-[connection signal="animation_finished" from="Blade/BladeAnimations" to="." method="_on_blade_animations_animation_finished"]
 [connection signal="animation_finished" from="Blade/BladeAnimations" to="." method="_on_blade_animations_finished"]
+[connection signal="animation_finished" from="Blade/BladeAnimations" to="." method="_on_blade_animations_animation_finished"]
 
 [editable path="Hurtbox"]
 [editable path="Hitbox"]

@@ -1,0 +1,14 @@
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://wcftwtnhkncq"]
+
+[ext_resource type="StyleBox" uid="uid://cymiv3ixkevl8" path="res://Snakes and Blades/BasicButtonHover.tres" id="1_0tg8g"]
+[ext_resource type="StyleBox" uid="uid://dkm56kgsrlrvo" path="res://Snakes and Blades/BasicButtonFocus.tres" id="1_51mok"]
+[ext_resource type="StyleBox" uid="uid://qybfwvxegagm" path="res://Snakes and Blades/BasicButtonNormal.tres" id="2_6r2kt"]
+[ext_resource type="StyleBox" uid="uid://cbtyf6ku1kq3k" path="res://Snakes and Blades/BasicButtonPressed.tres" id="3_y3857"]
+
+[resource]
+Button/font_sizes/font_size = 32
+Button/styles/disabled = ExtResource("2_6r2kt")
+Button/styles/focus = ExtResource("1_51mok")
+Button/styles/hover = ExtResource("1_0tg8g")
+Button/styles/normal = ExtResource("2_6r2kt")
+Button/styles/pressed = ExtResource("3_y3857")

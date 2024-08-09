@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://h05bpqqsdr21"]
+[gd_scene load_steps=36 format=3 uid="uid://h05bpqqsdr21"]
 
 [ext_resource type="Texture2D" uid="uid://cqnhqnsinv0ah" path="res://Assets/random placeholder tileset.png" id="1_lc5ti"]
 [ext_resource type="Script" path="res://Scenes/LobbyScript.gd" id="1_s546i"]
@@ -17,6 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://biprg21ece37r" path="res://Snakes and Blades/Blades Pixel Logo3.png" id="7_kflr1"]
 [ext_resource type="PackedScene" uid="uid://d37yoc4n1k4sd" path="res://Scenes/snake_spawner.tscn" id="9_e0wcg"]
 [ext_resource type="Script" path="res://Entities/Player/Controls/PlayerControls.gd" id="14_k8dfb"]
+[ext_resource type="Resource" uid="uid://b883yvfauceiv" path="res://Entities/Player/Controls/P2_Controls.tres" id="17_yxw80"]
 
 [sub_resource type="Environment" id="Environment_qaalf"]
 background_mode = 3
@@ -29,6 +30,7 @@ glow_blend_mode = 1
 
 [sub_resource type="Animation" id="Animation_01px8"]
 resource_name = "Hold"
+length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -36,7 +38,7 @@ tracks/0/path = NodePath(".:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
+"times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(-3.03144, -3.03144),
 "update": 0,
 "values": [Vector2(0, 0), Vector2(0, 10)]
@@ -48,7 +50,7 @@ tracks/1/path = NodePath("../BladesLogo:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 1),
+"times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(-3.03144, -3.03144),
 "update": 0,
 "values": [Vector2(-11.968, 206), Vector2(-11.968, 196.5)]
@@ -60,7 +62,7 @@ tracks/2/path = NodePath("../BladesLogo:self_modulate")
 tracks/2/interp = 0
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 1),
+"times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(-3.03144, -3.03144),
 "update": 0,
 "values": [Color(1.5, 0, 0, 1), Color(0, 1, 0.983333, 1)]
@@ -72,7 +74,7 @@ tracks/3/path = NodePath("../../ColorRect:color")
 tracks/3/interp = 0
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 1),
+"times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(-3.03144, -3.03144),
 "update": 0,
 "values": [Color(0.856067, 0.856067, 0.856067, 1), Color(0, 0, 0, 1)]
@@ -84,7 +86,7 @@ tracks/4/path = NodePath(".:self_modulate")
 tracks/4/interp = 0
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0, 1),
+"times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(-3.03144, -3.03144),
 "update": 0,
 "values": [Color(0, 0, 0, 1), Color(1, 1, 1, 1)]
@@ -96,7 +98,7 @@ tracks/5/path = NodePath("../../Camera2D:rotation")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0, 1),
+"times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(-3.03144, -3.03144),
 "update": 0,
 "values": [0.20944, 0.0]
@@ -263,7 +265,6 @@ tracks/10/keys = {
 
 [sub_resource type="Animation" id="Animation_b20bk"]
 resource_name = "Transition"
-step = 0.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -401,6 +402,42 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="Animation" id="Animation_7u7rb"]
+resource_name = "fade_to_black"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(-2, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_dd3uv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_d8xar"]
+_data = {
+"RESET": SubResource("Animation_dd3uv"),
+"fade_to_black": SubResource("Animation_7u7rb")
+}
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1ac2s"]
 texture = ExtResource("1_lc5ti")
 texture_region_size = Vector2i(8, 8)
@@ -428,7 +465,7 @@ custom_data_layer_0/name = ""
 custom_data_layer_0/type = 0
 sources/0 = SubResource("TileSetAtlasSource_1ac2s")
 
-[sub_resource type="Resource" id="Resource_u6ymm"]
+[sub_resource type="Resource" id="Resource_836oy"]
 resource_local_to_scene = true
 script = ExtResource("14_k8dfb")
 player_index = 1
@@ -444,11 +481,23 @@ shader = ExtResource("2_vr5ys")
 shader_parameter/enabled = false
 shader_parameter/tint = Color(5, 5, 5, 1)
 
+[sub_resource type="LabelSettings" id="LabelSettings_u0yui"]
+resource_local_to_scene = true
+font_size = 32
+font_color = Color(1, 0.054902, 0.054902, 1)
+shadow_offset = Vector2(3, 3)
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_g1emq"]
 resource_local_to_scene = true
 shader = ExtResource("2_vr5ys")
 shader_parameter/enabled = false
 shader_parameter/tint = Color(5, 5, 5, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_2x0xh"]
+resource_local_to_scene = true
+font_size = 32
+font_color = Color(1, 0.054902, 0.054902, 1)
+shadow_offset = Vector2(3, 3)
 
 [node name="Lobby" type="Node2D"]
 script = ExtResource("1_s546i")
@@ -468,13 +517,13 @@ offset_right = 702.0
 offset_bottom = 81.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "5"
 label_settings = ExtResource("2_3khpd")
 horizontal_alignment = 1
 script = ExtResource("2_kxnc8")
 
 [node name="Timer" type="Timer" parent="Countdown"]
-wait_time = 5.0
+wait_time = 10.0
+one_shot = true
 
 [node name="Logo" type="Node2D" parent="."]
 modulate = Color(1.3, 1.3, 1.3, 1)
@@ -514,6 +563,29 @@ rotation_smoothing_speed = 1.0
 editor_draw_limits = true
 script = ExtResource("6_rkqqe")
 
+[node name="FadetoBlack" type="ColorRect" parent="Camera2D"]
+modulate = Color(0, 0, 0, 0)
+z_index = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -539.0
+offset_top = -334.0
+offset_right = 537.0
+offset_bottom = 337.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+color = Color(0, 0, 0, 1)
+
+[node name="Transition" type="AnimationPlayer" parent="Camera2D/FadetoBlack"]
+libraries = {
+"": SubResource("AnimationLibrary_d8xar")
+}
+
 [node name="Debug" type="Label" parent="Camera2D"]
 visible = false
 offset_left = -375.0
@@ -522,16 +594,6 @@ offset_right = -335.0
 offset_bottom = -214.0
 
 [node name="PauseMenu" parent="Camera2D" instance=ExtResource("6_iiamt")]
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = -66.0
-offset_top = -51.0
-offset_right = -66.0
-offset_bottom = -51.0
-grow_horizontal = 1
-grow_vertical = 1
-pivot_offset = Vector2(50, 50)
 
 [node name="TileMap" type="TileMap" parent="." groups=["walls"]]
 scale = Vector2(4, 4)
@@ -546,7 +608,8 @@ max_food = 3
 
 [node name="SnakeSpawnerP1" parent="." instance=ExtResource("9_e0wcg")]
 position = Vector2(-1107, 271)
-controls = SubResource("Resource_u6ymm")
+message = "P1 Joined!"
+controls = SubResource("Resource_836oy")
 
 [node name="Shine" parent="SnakeSpawnerP1" index="0"]
 position = Vector2(478, 147)
@@ -560,21 +623,26 @@ offset_top = 107.0
 offset_right = 590.0
 offset_bottom = 133.0
 rotation = 0.204423
-text = "Hold \"W\" to Charge"
+text = "P1: Hold \"W\" to Charge"
+label_settings = SubResource("LabelSettings_u0yui")
 
 [node name="SnakeSpawnerP2" parent="." instance=ExtResource("9_e0wcg")]
 position = Vector2(-1104, 272)
+message = "P2 Joined!"
+controls = ExtResource("17_yxw80")
 
 [node name="Shine" parent="SnakeSpawnerP2" index="0"]
-position = Vector2(1260, 218)
+position = Vector2(1588, -165)
 
 [node name="HoldCharge" parent="SnakeSpawnerP2" index="1"]
 z_index = 2
 material = SubResource("ShaderMaterial_g1emq")
-offset_left = 1151.0
-offset_top = 203.0
-offset_right = 1369.0
-offset_bottom = 229.0
+offset_left = 1479.0
+offset_top = -180.0
+offset_right = 1697.0
+offset_bottom = -154.0
+text = "P2: Hold \"I\" to Charge"
+label_settings = SubResource("LabelSettings_2x0xh")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 z_index = -6
@@ -586,6 +654,7 @@ color = Color(0.856067, 0.856067, 0.856067, 1)
 [connection signal="timeout" from="Countdown/Timer" to="Countdown" method="_on_timer_timeout"]
 [connection signal="animation_finished" from="Logo/LogoAnimation" to="." method="_on_logo_animation_animation_finished"]
 [connection signal="animation_finished" from="Logo/LogoAnimation" to="Logo" method="_on_logo_animation_animation_finished"]
+[connection signal="animation_finished" from="Camera2D/FadetoBlack/Transition" to="Countdown" method="_on_transition_animation_finished"]
 
 [editable path="FoodSpawner"]
 [editable path="SnakeSpawnerP1"]

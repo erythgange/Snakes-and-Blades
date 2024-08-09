@@ -5,7 +5,7 @@ var random_strength: float = 30
 var shake_fade: float = 5
 var shake_strength: float = 0
 var rng = RandomNumberGenerator.new()
-
+	
 func _physics_process(delta) -> void:	
 	$Debug.text = "FPS: " + str(Engine.get_frames_per_second())
 	if Input.is_action_just_pressed("debug"): 
@@ -23,4 +23,9 @@ func _camera_shake(amount):
 
 # zoom when winning a round
 func _wipeout_screen() -> void:
+	pass
+
+# fade to black
+func _fade(to_black: bool) -> void:
+	#if to_black == true: 
 	pass

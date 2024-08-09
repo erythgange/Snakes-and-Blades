@@ -14,8 +14,13 @@ func display_numbers(value: int, is_damage: bool = true, is_parry: bool = false)
 			$AnimationPlayer.speed_scale += -.1
 	
 	
-	if is_parry == true: $AnimationPlayer.play("Parry")
-	elif value == 0: $AnimationPlayer.play("Neutral")
+	if is_parry == true: 
+		$AnimationPlayer.play("Parry")
+		number.text = "Parry!"
+	elif value == 0: 
+		number.text = "Invulnerable"
+		$AnimationPlayer.play("Neutral")
+		
 	elif is_damage == true: $AnimationPlayer.play("Damage")
 	else: $AnimationPlayer.play("Heal")
 

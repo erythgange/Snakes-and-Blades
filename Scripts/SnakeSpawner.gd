@@ -1,7 +1,11 @@
 extends Node2D
 
 # controls
+@export var message: String = "Snake Joined!"
 @export var controls: Resource = null
+@export var can_die: bool = false
+@export_range(0,360) var spawn_angle: float = 0
+
 
 # base values
 @export var control_delay: float = 1.4
@@ -25,17 +29,23 @@ func _ready():
 	#elif index == 4: controls = P4_CONTROLS
 
 func _process(delta) -> void:
-	if Input.is_action_just_pressed(controls.dash) == true: _hit_flash()
+	if Input.is_action_just_pressed(controls.dash) == true: 
+		#_hit_flash()
+		$AnimationPlayer.play("charge")
 	if Input.is_action_pressed(controls.dash) == true:
 		if charge < 1: charge += .02
 		else: 
-			$HoldCharge.material.set_shader_parameter("enabled", true)
+			_hit_flash()
 			$Shine.emitting = true
 	if Input.is_action_just_released(controls.dash):
 		if charge >= 1: 
 			spawn(index)
-		charge = 0
-
+			$HoldCharge.text = message
+			set_process(false)
+		else:
+			charge = 0
+			$AnimationPlayer.play("RESET")
+			
 func spawn(index) -> void:	
 	var snake = SNAKE_HEAD.instantiate()
 	snake.controls = controls
@@ -43,12 +53,14 @@ func spawn(index) -> void:
 	var spawn_position = global_position
 	snake.global_position = spawn_position
 	$".."._get_snake_signal(index)
+	snake.global_rotation = deg_to_rad(spawn_angle)
+	print(snake.global_rotation)
 	
 	snake.bonus_speed = spawn_bonus_speed
 	snake.health = spawn_health
 	snake.max_speed = spawn_max_speed
 	snake.speed = spawn_speed
-	add_sibling(snake)
+	add_sibling(snake, true)
 	
 	snake.dash_particles.emitting = true
 	snake.turn_amplifier = 0
@@ -57,7 +69,7 @@ func spawn(index) -> void:
 	snake.turn_amplifier = 1
 	snake.can_attack = true
 	snake.set_collision_mask_value(1, true)
-	
+	snake.can_die = can_die
 	
 	self.queue_free()
 

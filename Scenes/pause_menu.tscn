@@ -1,55 +1,78 @@
 [gd_scene load_steps=4 format=3 uid="uid://mojhv5f5pqoy"]
 
 [ext_resource type="Script" path="res://Scripts/pause_menu.gd" id="1_cesik"]
-[ext_resource type="Shader" path="res://Shaders/blur.gdshader" id="1_dhswp"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_bq0jb"]
-shader = ExtResource("1_dhswp")
-shader_parameter/amount = 1.0
+[ext_resource type="Theme" uid="uid://wcftwtnhkncq" path="res://Snakes and Blades/FontTheme.tres" id="2_i3edd"]
+[ext_resource type="Texture2D" uid="uid://dd45uef3k02wi" path="res://Snakes and Blades/Snakes&Blades logo White.png" id="3_m7ci6"]
 
 [node name="PauseMenu" type="Control"]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
 script = ExtResource("1_cesik")
+metadata/_edit_use_anchors_ = true
 
-[node name="ColorRect" type="ColorRect" parent="."]
-material = SubResource("ShaderMaterial_bq0jb")
-layout_mode = 2
-offset_left = -43.0
-offset_top = 5.0
-offset_right = 157.0
-offset_bottom = 155.0
-scale = Vector2(10, 10)
-pivot_offset = Vector2(100, 75)
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -503.0
+offset_top = -294.0
+offset_right = 508.0
+offset_bottom = 291.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
-layout_mode = 0
-offset_right = 112.0
-offset_bottom = 108.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
-layout_mode = 2
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -101.0
+offset_right = 101.0
+offset_bottom = 128.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 alignment = 1
 
-[node name="Resume" type="Button" parent="PanelContainer/VBoxContainer"]
+[node name="Resume" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 0
+theme = ExtResource("2_i3edd")
 text = "Resume"
+alignment = 0
 
-[node name="Fullscreen" type="CheckButton" parent="PanelContainer/VBoxContainer"]
+[node name="Fullscreen" type="CheckButton" parent="VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("2_i3edd")
 text = "Fullscreen"
 
-[node name="Quit to Desktop" type="Button" parent="PanelContainer/VBoxContainer"]
+[node name="Quit to Desktop" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 0
+theme = ExtResource("2_i3edd")
 text = "Quit to Desktop"
+alignment = 0
 
-[connection signal="pressed" from="PanelContainer/VBoxContainer/Resume" to="." method="_on_button_pressed"]
-[connection signal="pressed" from="PanelContainer/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
-[connection signal="pressed" from="PanelContainer/VBoxContainer/Fullscreen" to="." method="_on_fullscreen_pressed"]
-[connection signal="toggled" from="PanelContainer/VBoxContainer/Fullscreen" to="." method="_on_fullscreen_toggled"]
-[connection signal="pressed" from="PanelContainer/VBoxContainer/Quit to Desktop" to="." method="_on_button_2_pressed"]
-[connection signal="pressed" from="PanelContainer/VBoxContainer/Quit to Desktop" to="." method="_on_quit_to_desktop_pressed"]
+[node name="Snakes&bladesLogoBlack" type="Sprite2D" parent="."]
+position = Vector2(2, -95)
+scale = Vector2(0.221, 0.221)
+texture = ExtResource("3_m7ci6")
+
+[connection signal="pressed" from="VBoxContainer/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="VBoxContainer/Resume" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Fullscreen" to="." method="_on_fullscreen_pressed"]
+[connection signal="toggled" from="VBoxContainer/Fullscreen" to="." method="_on_fullscreen_toggled"]
+[connection signal="pressed" from="VBoxContainer/Quit to Desktop" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="VBoxContainer/Quit to Desktop" to="." method="_on_quit_to_desktop_pressed"]
+[connection signal="pressed" from="VBoxContainer/Quit to Desktop" to="." method="_on_button_pressed"]

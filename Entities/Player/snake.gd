@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 # Base values (can be changed)
-@export var health: int = 20 #min: 10, max: 100
+@export_range(1,100) var health: int = 20 #min: 10, max: 100
 
 # Stat Modifiers (additive values)
 var bonus_speed: float = 0
@@ -55,7 +55,7 @@ func _physics_process(delta) -> void:
 	_dash(delta)
 	
 	# Turn left and right
-	var turn_speed: int = (speed + 150) * turn_amplifier
+	var turn_speed: int = (speed +150) * turn_amplifier
 	_turn(turn_speed, delta)
 	
 	# collision and bounce
@@ -71,24 +71,19 @@ func _physics_process(delta) -> void:
 	velocity = Vector2((speed+bonus_speed),0).rotated(rotation) * delta * 100
 	var max_speed = body_parts.size() * 20
 	if speed < max_speed and can_speedup == true:
-		speed += (health * .1) * delta
+		speed += (health * .5) * delta
 	$CameraMarker.position.x = (speed+bonus_speed)*.1
 	
 
 
 
 func _ready():
-	
 	# snake sprites per player
 	var index = controls.player_index
 	$SnakeHeadSprite.region_rect = Rect2(0, (index-1)*16, 16, 16)
 	$SnakeHeadGlow.region_rect = Rect2(48, (index-1)*16, 16, 16)
-	
 	# player collision
 	_set_by_player_collisions()
-	
-	
-	
 	
 func _set_by_player_collisions() -> void:
 	$Hitbox.set_collision_layer_value(controls.blade_layer, true) # you have this blade
@@ -119,13 +114,13 @@ func _bounce(collision) -> void:
 		if is_parrying == true: # if collided while parrying:
 			_spawn_particle(BOUNCE_PARRY, global_position)
 			speed += 20
-			bonus_speed += speed/4
+			bonus_speed += speed/5
 			$DashParticles.emitting = true
 			_popup_numbers((speed+bonus_speed)/5, false, true)
 		else: # if collided while not*** parrying:
 			_hurt((speed+bonus_speed)/5, true, speed) # damage when colliding
 			_spawn_particle(particle_bounce, collision.get_position())
-			speed = speed*0.75 #speed loss when colliding
+			speed = speed*0.50 #speed loss when colliding
 			bonus_speed = 0
 			if speed < 35: speed = 35 # minimum speed	
 
@@ -163,7 +158,7 @@ func _update_body():
 		var left_body_part = body_parts[-1]
 		body_parts.pop_back()
 		left_body_part._detached(speed+(bonus_speed/2))
-		var force = speed+(bonus_speed/2) * 2
+		var force = speed+(bonus_speed/2) * 5
 		left_body_part.linear_velocity = Vector2(randf_range(-1,1) * force, randf_range(-1,1) * force)
 		left_body_part.angular_velocity = randf_range(-1,1) * force
 
@@ -177,7 +172,7 @@ func sliced(body_part_number) -> void:
 			body_parts[body_parts.size() - sliced_count + x]._hit_flash()
 			_hitstun(1, 0)
 			print("hit stun!")
-		var damage = sliced_count * 5
+		var damage = sliced_count * 3
 		health -= damage
 		_popup_numbers(damage, true, false)
 		_hitstun(0, damage/2)
@@ -201,37 +196,39 @@ var invulnerable: bool = false
 func _hurt(damage: int, is_collision: bool, speed: float) -> void:
 	if is_parrying == true:
 		_spawn_particle(BOUNCE_PARRY, global_position)
+		_popup_numbers((speed+bonus_speed)/5, false, true)
 	else:
 		if invulnerable == false:
 			invulnerable = true
 			turn_amplifier = 0
 			hit_flash.play("hit_flash_long")
 			for x in body_parts.size():
-				#if health < 1: _die()
 				if damage < 20: body_parts[x]._hit_flash()
 				else:
 					_hitstun(.00001, 0)  # hitstun if more than 20 damage
 					body_parts[x]._hit_flash()
 				await get_tree().create_timer(.00001).timeout
-			if is_collision== true and (health - damage) <= 0: damage = health-1 # lives on 1hp
+			if is_collision == true and (health - damage) <= 0: damage = health-1 # lives on 1hp
 			# snake cant grow past the health value
 			if position_history.size() > (body_parts.size()+1) *2: position_history.pop_front()
 			health -= damage # damage for collision
 			_popup_numbers(damage, true, false)
-			if damage > 20: _hitstun(0, damage/2)
-			# die condition
 			if health < 1: _die()
+			if damage > 20: _hitstun(0, damage/2)
+
 			
 			
-			await get_tree().create_timer(1, true, false, false).timeout
+			await get_tree().create_timer(.5, true, false, false).timeout
 			turn_amplifier = 1
 			hit_flash.play("RESET")
 			invulnerable = false
 
+var can_die: bool = true
 func _die() -> void:
-	$".."._game_over(controls.player_index)
-	Engine.time_scale = 0
-	self.queue_free()
+	if can_die == true:
+		self.queue_free()
+		$".."._game_over(controls.player_index)
+	else: _hurt(0,true,0)
 
 func _heal(heal: int) -> void:
 	if (heal + health) > 100:
@@ -286,7 +283,7 @@ func _dash(delta) -> void:
 			if Input.is_action_just_released(controls.dash):
 				if bonus_speed < 0: bonus_speed = 0
 
-				blade_delay += 3
+				blade_delay += 6
 				turn_amplifier = 1
 				charge = 0
 				_slash()
@@ -306,7 +303,7 @@ func _parry() -> void:
 	is_parrying = true
 	shine.emitting = true
 	
-	var parrytimer = ((bonus_speed/4) + speed)/1000 + .1
+	var parrytimer = ((bonus_speed/4) + speed)/1000 + .2
 	print (parrytimer)
 	await get_tree().create_timer(parrytimer).timeout
 	blade_sprite.material.set_shader_parameter("enabled", false)
